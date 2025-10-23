@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8064040457181509924}
   - component: {fileID: 4874857110864243334}
   - component: {fileID: 8198279503320761152}
+  - component: {fileID: 5705965579534049408}
   m_Layer: 0
   m_Name: Prison_DoorBottom
   m_TagString: Untagged
@@ -86,6 +87,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5705965579534049408
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205794586686130533}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4059700844910386930, guid: 47a0e19411a0a5e449fc118d86d10160, type: 3}
 --- !u!1 &526576689881715966
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +120,7 @@ GameObject:
   - component: {fileID: 3630840942441842660}
   - component: {fileID: 6033352877113371028}
   - component: {fileID: 7787629816793582991}
+  - component: {fileID: 884381068105146676}
   m_Layer: 0
   m_Name: Prison_DoorTop
   m_TagString: Untagged
@@ -172,6 +196,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &884381068105146676
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526576689881715966}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6899211485890331061, guid: 47a0e19411a0a5e449fc118d86d10160, type: 3}
 --- !u!1 &608841933888480903
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +384,7 @@ GameObject:
   - component: {fileID: 7365455566059185826}
   - component: {fileID: 6587044861973311212}
   - component: {fileID: 2433643959757601893}
+  - component: {fileID: 631332018359697836}
   m_Layer: 0
   m_Name: Prison_DoorOutSide
   m_TagString: Untagged
@@ -413,6 +460,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &631332018359697836
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228303342997918612}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1295929155855529060, guid: 47a0e19411a0a5e449fc118d86d10160, type: 3}
 --- !u!1 &7519880149673500976
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +493,7 @@ GameObject:
   - component: {fileID: 3662619086140489598}
   - component: {fileID: 9209148230084709421}
   - component: {fileID: 8736953373132404571}
+  - component: {fileID: 3986541017733323803}
   m_Layer: 0
   m_Name: Prison_DoorMiddle
   m_TagString: Untagged
@@ -499,6 +569,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3986541017733323803
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7519880149673500976}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8124078774487193453, guid: 47a0e19411a0a5e449fc118d86d10160, type: 3}
 --- !u!1 &9118476020743397991
 GameObject:
   m_ObjectHideFlags: 0
