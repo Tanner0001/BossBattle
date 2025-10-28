@@ -54,7 +54,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "a7b8c9d0-e1f2-4a3b-4c5d-6e7f8a9b0c1d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -72,6 +72,15 @@
                     "name": "LockOn",
                     "type": "Button",
                     "id": "c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "96e5732d-bd90-4aef-a2a2-9351da121c81",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -296,6 +305,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "LockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5667897-7aa0-465e-8140-dd873f419945",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d401502d-7898-4805-ba71-8c6ab250e451",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

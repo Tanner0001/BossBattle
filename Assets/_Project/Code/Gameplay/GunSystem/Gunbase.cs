@@ -30,20 +30,33 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
             if (_currentAmmo <= 0)
             {
-                _feedback.PlayEmptyFeedback();
+                _feedback?.PlayEmptyFeedback();
                 EventBus.Instance.Publish(new GunEmptyEvent());
                 return;
             }
 
-            // Spawn projectile
-            Instantiate(projectilePrefab, muzzlePoint.position, muzzlePoint.rotation);
+            if (projectilePrefab == null)
+            {
+                Debug.LogWarning("GunBase: Projectile prefab not assigned!");
+                return;
+            }
+            if (muzzlePoint == null)
+            {
+                Debug.LogWarning("GunBase: Muzzle point not assigned!");
+                return;
+            }
+
+            GameObject projectileInstance = Instantiate(projectilePrefab, muzzlePoint.position, muzzlePoint.rotation);
+
             _currentAmmo--;
             _canFire = false;
 
-            // Trigger feedback + events
-            _feedback.PlayFireFeedback();
+            _feedback?.PlayFireFeedback();
             EventBus.Instance.Publish(new GunFiredEvent());
             EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, maxAmmo));
+
+            Debug.Log("GunBase.Fire() called — attempting to play feedback", this);
+
 
             Invoke(nameof(ResetFire), fireRate);
         }
@@ -53,7 +66,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             if (_isReloading || _currentAmmo == maxAmmo) return;
 
             _isReloading = true;
-            _feedback.PlayReloadFeedback();
+            _feedback?.PlayReloadFeedback();
             EventBus.Instance.Publish(new ReloadEvent());
 
             Invoke(nameof(FinishReload), reloadTime);

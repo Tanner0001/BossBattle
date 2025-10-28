@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace _Project.Code.Gameplay.Combat.GunSystem
 {
@@ -12,7 +11,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
         private void Start()
         {
-            Destroy(gameObject, lifeTime);
+            Destroy(gameObject, lifeTime); 
         }
 
         private void Update()
@@ -22,14 +21,13 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent(out Hitbox hitbox))
-            {
-                hitbox.ApplyDamage(damage);
-            }
+            
+            if (collision.gameObject.CompareTag("Player")) return;
 
             if (impactEffect)
                 Instantiate(impactEffect, transform.position, Quaternion.identity);
 
+            
             Destroy(gameObject);
         }
     }

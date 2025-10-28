@@ -13,32 +13,57 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         [Header("Visuals")]
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private Animator gunAnimator;
-       // [SerializeField] private CameraShakeController cameraShake;
+        //[SerializeField] private CameraShakeController cameraShake;
 
         private AudioSource _audio;
 
         private void Awake()
         {
             _audio = GetComponent<AudioSource>();
+            _audio.playOnAwake = false;
+            _audio.spatialBlend = 0f; 
+            _audio.volume = 1f;
         }
+
+        private void Start()
+        {
+            Debug.Log("Testing AudioSource playback manually...");
+            if (fireClip != null)
+                _audio.PlayOneShot(fireClip);
+        }
+
 
         public void PlayFireFeedback()
         {
-            if (muzzleFlash != null) muzzleFlash.Play();
-            if (_audio && fireClip) _audio.PlayOneShot(fireClip);
-            if (gunAnimator) gunAnimator.SetTrigger("Fire");
-           // if (cameraShake) cameraShake.SmallShake();
+
+            if (fireClip != null)
+                _audio.PlayOneShot(fireClip);
+            else
+                Debug.LogWarning("GunFeedbackController: Missing FireClip!", this);
+
+ 
+            if (muzzleFlash != null)
+                muzzleFlash.Play();
+
+
+            if (gunAnimator != null)
+                gunAnimator.SetTrigger("Fire");
+
         }
 
         public void PlayReloadFeedback()
         {
-            if (_audio && reloadClip) _audio.PlayOneShot(reloadClip);
-            if (gunAnimator) gunAnimator.SetTrigger("Reload");
+            if (reloadClip != null)
+                _audio.PlayOneShot(reloadClip);
+
+            if (gunAnimator != null)
+                gunAnimator.SetTrigger("Reload");
         }
 
         public void PlayEmptyFeedback()
         {
-            if (_audio && emptyClip) _audio.PlayOneShot(emptyClip);
+            if (emptyClip != null)
+                _audio.PlayOneShot(emptyClip);
         }
     }
 }

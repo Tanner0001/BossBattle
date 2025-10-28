@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 4062620584957560922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.4856}
+  m_LocalPosition: {x: 0, y: 0, z: 0.565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 8004164178941563310}
   - component: {fileID: 6698891902164846864}
   - component: {fileID: 1305508537638289493}
-  - component: {fileID: 8668364917166669735}
   m_Layer: 3
   m_Name: GunModel
   m_TagString: Untagged
@@ -150,27 +149,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8668364917166669735
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4380380645335228647}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4581804924480853540
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,12 +191,12 @@ GameObject:
   - component: {fileID: 2986544758558342657}
   - component: {fileID: 6487567182319453292}
   - component: {fileID: 8457369073478035520}
+  - component: {fileID: 2031049782358623173}
   - component: {fileID: 4126521150500142111}
   - component: {fileID: 132123506309872536}
   - component: {fileID: 3475310545585299377}
-  - component: {fileID: 2031049782358623173}
-  - component: {fileID: 8648686317212482695}
-  - component: {fileID: 2170024709951131924}
+  - component: {fileID: 6647524351414135286}
+  - component: {fileID: 8846183783428551358}
   m_Layer: 3
   m_Name: FPSPlayer
   m_TagString: Untagged
@@ -282,6 +260,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcce294221aede48a3d9c8c27b7493f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2031049782358623173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636853018378030737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b88e1ed2222274b9c693808291107c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4126521150500142111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,24 +314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75493f79bf9f5fb479be816a138a38b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 10
+  maxAmmo: 15
   fireRate: 0.2
-  reloadTime: 1.5
-  projectilePrefab: {fileID: 0}
-  muzzlePoint: {fileID: 0}
---- !u!114 &2031049782358623173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7636853018378030737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b88e1ed2222274b9c693808291107c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!82 &8648686317212482695
+  reloadTime: 1
+  projectilePrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
+  muzzlePoint: {fileID: 1891536846417129452}
+--- !u!82 &6647524351414135286
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -438,7 +416,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2170024709951131924
+--- !u!114 &8846183783428551358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -450,7 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f12713dc583e641b8b2afcb2245377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireClip: {fileID: 8300000, guid: e596ad23f28e42a4e96e2403dff2f87f, type: 3}
+  fireClip: {fileID: 8300000, guid: a40458d509c856142ac37165b8ddca62, type: 3}
   reloadClip: {fileID: 0}
   emptyClip: {fileID: 0}
   muzzleFlash: {fileID: 0}
