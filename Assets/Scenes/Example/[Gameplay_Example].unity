@@ -2366,10 +2366,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 7803903546495545621, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
-      propertyPath: reloadSound
-      value: 
-      objectReference: {fileID: 11400000, guid: aaf06b54f5315614eb496e30ed4bf762, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

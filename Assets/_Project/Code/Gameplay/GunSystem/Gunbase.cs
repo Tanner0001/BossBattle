@@ -5,10 +5,10 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 {
     public class GunBase : MonoBehaviour
     {
-        [Header("Data") safeguard]
+        [Header("Data")]
         [SerializeField] private GunData gunData;
 
-        [Header("References") safeguard]
+        [Header("References")]
         [SerializeField] private Transform muzzlePoint;
 
         private int _currentAmmo;

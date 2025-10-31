@@ -314,10 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75493f79bf9f5fb479be816a138a38b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 15
-  fireRate: 0.2
-  reloadTime: 1
-  projectilePrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
+  gunData: {fileID: 11400000, guid: a53580657f6860e4d901fabb0016fa4b, type: 2}
   muzzlePoint: {fileID: 1891536846417129452}
 --- !u!114 &7803903546495545621
 MonoBehaviour:
