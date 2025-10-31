@@ -13,6 +13,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         [Header("Visuals")]
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private Animator gunAnimator;
+        [SerializeField] private Transform muzzlePoint;
         //[SerializeField] private CameraShakeController cameraShake;
 
         private AudioSource _audio;
@@ -43,6 +44,9 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
  
             if (muzzleFlash != null)
+            {
+                Instantiate(muzzleFlash, muzzlePoint.position, muzzlePoint.rotation);
+            }
                 muzzleFlash.Play();
 
 
