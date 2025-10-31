@@ -3,6 +3,7 @@ using _Project.Code.Core.Events;
 
 namespace _Project.Code.Gameplay.Combat.GunSystem
 {
+    [RequireComponent(typeof(GunRecoil))]
     public class GunBase : MonoBehaviour
     {
         [Header("Data")]
@@ -16,13 +17,17 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         private bool _isReloading = false;
 
         private GunFeedbackController _feedback;
+        private GunRecoil _gunRecoil;
 
         private void Awake()
         {
             _feedback = GetComponent<GunFeedbackController>();
+            _gunRecoil = GetComponent<GunRecoil>();
+
             if (gunData != null)
             {
                 _currentAmmo = gunData.MaxAmmo;
+                _gunRecoil.Initialize(gunData);
             }
         }
 
@@ -51,6 +56,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             _canFire = false;
 
             _feedback?.PlayFireFeedback();
+            _gunRecoil.TriggerRecoil();
             EventBus.Instance.Publish(new GunFiredEvent());
             EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, gunData.MaxAmmo));
 

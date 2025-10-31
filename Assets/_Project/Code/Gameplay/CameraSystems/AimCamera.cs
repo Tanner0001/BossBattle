@@ -5,6 +5,7 @@ using _Project.Code.Core.ServiceLocator;
 using _Project.Code.Gameplay.CameraSystems.Profiles;
 using _Project.Code.Gameplay.Input;
 using _Project.Code.Gameplay.Player;
+using _Project.Code.Gameplay.Combat.GunSystem;
 
 namespace _Project.Code.Gameplay.CameraSystems
 {
@@ -41,6 +42,7 @@ namespace _Project.Code.Gameplay.CameraSystems
             EventBus.Instance.Subscribe<PlayerRegisteredEvent>(this, OnPlayerRegistered);
             EventBus.Instance.Subscribe<LookInputEvent>(this, HandleLook);
             EventBus.Instance.Subscribe<AimStateChangedEvent>(this, HandleAimStateChanged);
+            EventBus.Instance.Subscribe<CameraRecoilEvent>(this, HandleCameraRecoil);
 
             // Auto-connect to player if available
             ConnectToPlayer();
@@ -125,6 +127,11 @@ namespace _Project.Code.Gameplay.CameraSystems
             _isAiming = evt.IsAiming;
         }
 
+        private void HandleCameraRecoil(CameraRecoilEvent evt)
+        {
+            _currentPitch -= evt.RecoilAmount;
+        }
+
         protected override void LateUpdate()
         {
             if (_profile == null) return;
@@ -184,6 +191,7 @@ namespace _Project.Code.Gameplay.CameraSystems
             EventBus.Instance?.Unsubscribe<PlayerRegisteredEvent>(this);
             EventBus.Instance?.Unsubscribe<LookInputEvent>(this);
             EventBus.Instance?.Unsubscribe<AimStateChangedEvent>(this);
+            EventBus.Instance?.Unsubscribe<CameraRecoilEvent>(this);
         }
     }
 }
