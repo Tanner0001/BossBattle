@@ -24,10 +24,13 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         {
             if (collision.gameObject.CompareTag("Player")) return;
 
-            // Instantiate the impact effect and destroy it after its duration
+            // Instantiate the impact effect at the point of impact and align it with the surface normal
             if (impactEffectPrefab != null)
             {
-                var impactEffectInstance = Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+                ContactPoint contact = collision.contacts[0];
+                Quaternion rotation = Quaternion.LookRotation(contact.normal);
+                var impactEffectInstance = Instantiate(impactEffectPrefab, contact.point, rotation);
+
                 if (impactEffectInstance.TryGetComponent<ParticleSystem>(out var particleSystem))
                 {
                     Destroy(impactEffectInstance, particleSystem.main.duration);

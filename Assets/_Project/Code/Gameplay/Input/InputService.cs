@@ -32,8 +32,7 @@ namespace _Project.Code.Gameplay.Input
             _inputActions.Gameplay.LockOn.performed += HandleLockOnPerformed;
             _inputActions.Gameplay.LockOn.canceled += HandleLockOnCanceled;
 
-            _inputActions.Gameplay.Enable();
-            
+            EnableGameplayActions();
         }
 
         private void HandleMovePerformed(InputAction.CallbackContext context)
@@ -105,18 +104,24 @@ namespace _Project.Code.Gameplay.Input
         {
             _inputActions.Gameplay.Enable();
             _inputActions.UI.Disable();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         public void EnableUIActions()
         {
             _inputActions.Gameplay.Disable();
             _inputActions.UI.Enable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         public void DisableAllActions()
         {
             _inputActions.Gameplay.Disable();
             _inputActions.UI.Disable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         public override void Dispose()
