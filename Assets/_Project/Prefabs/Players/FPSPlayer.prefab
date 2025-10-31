@@ -158,7 +158,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e29db44f216c2064d823ade5d5da3f3f, type: 2}
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -196,8 +196,7 @@ GameObject:
   - component: {fileID: 4126521150500142111}
   - component: {fileID: 132123506309872536}
   - component: {fileID: 3475310545585299377}
-  - component: {fileID: 6647524351414135286}
-  - component: {fileID: 8846183783428551358}
+  - component: {fileID: 7803903546495545621}
   m_Layer: 3
   m_Name: FPSPlayer
   m_TagString: Untagged
@@ -320,104 +319,7 @@ MonoBehaviour:
   reloadTime: 1
   projectilePrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
   muzzlePoint: {fileID: 1891536846417129452}
---- !u!82 &6647524351414135286
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7636853018378030737}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &8846183783428551358
+--- !u!114 &7803903546495545621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -429,9 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f12713dc583e641b8b2afcb2245377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireClip: {fileID: 8300000, guid: a40458d509c856142ac37165b8ddca62, type: 3}
-  reloadClip: {fileID: 0}
-  emptyClip: {fileID: 0}
+  fireSound: {fileID: 11400000, guid: 34384e84dc7f829458916110ae2b05ef, type: 2}
+  reloadSound: {fileID: 11400000, guid: aaf06b54f5315614eb496e30ed4bf762, type: 2}
+  emptySound: {fileID: 11400000, guid: d8e8b497f65a1924db77ad2fb5471759, type: 2}
   muzzleFlash: {fileID: 7980029976762078213, guid: 1f58a1dea6bbd9347843e4935585e6a2, type: 3}
   gunAnimator: {fileID: 0}
   muzzlePoint: {fileID: 1891536846417129452}

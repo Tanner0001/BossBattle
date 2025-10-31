@@ -28,7 +28,7 @@ MonoBehaviour:
   <CollisionLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 4294967295
-  <DynamicFOV>k__BackingField: 0
+  <DynamicFOV>k__BackingField: 1
   <SprintFOV>k__BackingField: 70
   <AimFOV>k__BackingField: 40
   <FOVTransitionSpeed>k__BackingField: 5

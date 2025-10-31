@@ -1,14 +1,16 @@
 using UnityEngine;
+using _Project.Code.Core.Audio;
+using _Project.Code.Core.Events;
 
 namespace _Project.Code.Gameplay.Combat.GunSystem
 {
-    [RequireComponent(typeof(AudioSource))]
+
     public class GunFeedbackController : MonoBehaviour
     {
-        [Header("Audio")]
-        [SerializeField] private AudioClip fireClip;
-        [SerializeField] private AudioClip reloadClip;
-        [SerializeField] private AudioClip emptyClip;
+        [Header("Audio Events")]
+        [SerializeField] private SoundEvent fireSound;
+        [SerializeField] private SoundEvent reloadSound;
+        [SerializeField] private SoundEvent emptySound;
 
         [Header("Visuals")]
         [SerializeField] private ParticleSystem muzzleFlash;
@@ -16,29 +18,14 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         [SerializeField] private Transform muzzlePoint;
         //[SerializeField] private CameraShakeController cameraShake;
 
-        private AudioSource _audio;
 
-        private void Awake()
-        {
-            _audio = GetComponent<AudioSource>();
-            _audio.playOnAwake = false;
-            _audio.spatialBlend = 0f; 
-            _audio.volume = 1f;
-        }
-
-        private void Start()
-        {
-            Debug.Log("Testing AudioSource playback manually...");
-            if (fireClip != null)
-                _audio.PlayOneShot(fireClip);
-        }
 
 
         public void PlayFireFeedback()
         {
 
-            if (fireClip != null)
-                _audio.PlayOneShot(fireClip);
+            if (fireSound != null)
+                EventBus.Instance.Publish(new PlaySoundEvent(fireSound, muzzlePoint.position));
             else
                 Debug.LogWarning("GunFeedbackController: Missing FireClip!", this);
 
@@ -57,8 +44,8 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
         public void PlayReloadFeedback()
         {
-            if (reloadClip != null)
-                _audio.PlayOneShot(reloadClip);
+            if (reloadSound != null)
+                EventBus.Instance.Publish(new PlaySoundEvent(reloadSound, muzzlePoint.position));
 
             if (gunAnimator != null)
                 gunAnimator.SetTrigger("Reload");
@@ -66,8 +53,8 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
         public void PlayEmptyFeedback()
         {
-            if (emptyClip != null)
-                _audio.PlayOneShot(emptyClip);
+            if (emptySound != null)
+                EventBus.Instance.Publish(new PlaySoundEvent(emptySound, muzzlePoint.position));
         }
     }
 }
