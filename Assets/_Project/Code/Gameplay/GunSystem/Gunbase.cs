@@ -5,11 +5,10 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 {
     public class GunBase : MonoBehaviour
     {
-        [Header("Gun Settings")]
-        [SerializeField] private int maxAmmo = 10;
-        [SerializeField] private float fireRate = 0.2f;
-        [SerializeField] private float reloadTime = 1.5f;
-        [SerializeField] private GameObject projectilePrefab;
+        [Header("Data") safeguard]
+        [SerializeField] private GunData gunData;
+
+        [Header("References") safeguard]
         [SerializeField] private Transform muzzlePoint;
 
         private int _currentAmmo;
@@ -21,12 +20,15 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         private void Awake()
         {
             _feedback = GetComponent<GunFeedbackController>();
-            _currentAmmo = maxAmmo;
+            if (gunData != null)
+            {
+                _currentAmmo = gunData.MaxAmmo;
+            }
         }
 
         public void Fire()
         {
-            if (!_canFire || _isReloading) return;
+            if (!_canFire || _isReloading || gunData == null) return;
 
             if (_currentAmmo <= 0)
             {
@@ -35,9 +37,31 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
                 return;
             }
 
-            if (projectilePrefab == null)
+            switch (gunData.FireMode)
             {
-                Debug.LogWarning("GunBase: Projectile prefab not assigned!");
+                case FireMode.Projectile:
+                    FireProjectile();
+                    break;
+                case FireMode.Hitscan:
+                    FireHitscan();
+                    break;
+            }
+
+            _currentAmmo--;
+            _canFire = false;
+
+            _feedback?.PlayFireFeedback();
+            EventBus.Instance.Publish(new GunFiredEvent());
+            EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, gunData.MaxAmmo));
+
+            Invoke(nameof(ResetFire), gunData.FireRate);
+        }
+
+        private void FireProjectile()
+        {
+            if (gunData.ProjectilePrefab == null)
+            {
+                Debug.LogWarning("GunBase: Projectile prefab not assigned in GunData!");
                 return;
             }
             if (muzzlePoint == null)
@@ -46,37 +70,49 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
                 return;
             }
 
-            GameObject projectileInstance = Instantiate(projectilePrefab, muzzlePoint.position, muzzlePoint.rotation);
+            GameObject projectileInstance = Instantiate(gunData.ProjectilePrefab, muzzlePoint.position, muzzlePoint.rotation);
+            if (projectileInstance.TryGetComponent<Projectile>(out var projectile))
+            {
+                projectile.Damage = gunData.Damage;
+            }
+        }
 
-            _currentAmmo--;
-            _canFire = false;
+        private void FireHitscan()
+        {
+            if (muzzlePoint == null)
+            {
+                Debug.LogWarning("GunBase: Muzzle point not assigned!");
+                return;
+            }
 
-            _feedback?.PlayFireFeedback();
-            EventBus.Instance.Publish(new GunFiredEvent());
-            EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, maxAmmo));
-
-            Debug.Log("GunBase.Fire() called — attempting to play feedback", this);
-
-
-            Invoke(nameof(ResetFire), fireRate);
+            if (Physics.Raycast(muzzlePoint.position, muzzlePoint.forward, out var hit, gunData.HitscanRange, gunData.HitscanLayers))
+            {
+                if (hit.collider.TryGetComponent<Hitbox>(out var hitbox))
+                {
+                    hitbox.ApplyDamage(gunData.Damage);
+                }
+            }
         }
 
         public void Reload()
         {
-            if (_isReloading || _currentAmmo == maxAmmo) return;
+            if (_isReloading || gunData == null || _currentAmmo == gunData.MaxAmmo) return;
 
             _isReloading = true;
             _feedback?.PlayReloadFeedback();
             EventBus.Instance.Publish(new ReloadEvent());
 
-            Invoke(nameof(FinishReload), reloadTime);
+            Invoke(nameof(FinishReload), gunData.ReloadTime);
         }
 
         private void FinishReload()
         {
-            _currentAmmo = maxAmmo;
-            _isReloading = false;
-            EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, maxAmmo));
+            if (gunData != null)
+            {
+                _currentAmmo = gunData.MaxAmmo;
+                _isReloading = false;
+                EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, gunData.MaxAmmo));
+            }
         }
 
         private void ResetFire() => _canFire = true;
