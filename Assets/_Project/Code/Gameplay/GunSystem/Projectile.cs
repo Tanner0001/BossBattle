@@ -6,7 +6,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
     {
         [SerializeField] private float speed = 30f;
         [SerializeField] private float lifeTime = 3f;
-        [SerializeField] private GameObject impactEffect;
+        [SerializeField] private GameObject impactEffectPrefab;
 
         public float Damage { get; set; }
 
@@ -24,8 +24,20 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         {
             if (collision.gameObject.CompareTag("Player")) return;
 
-            if (impactEffect)
-                Instantiate(impactEffect, transform.position, Quaternion.identity);
+            // Instantiate the impact effect and destroy it after its duration
+            if (impactEffectPrefab != null)
+            {
+                var impactEffectInstance = Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+                if (impactEffectInstance.TryGetComponent<ParticleSystem>(out var particleSystem))
+                {
+                    Destroy(impactEffectInstance, particleSystem.main.duration);
+                }
+                else
+                {
+                    // If there's no particle system, destroy it after a default duration
+                    Destroy(impactEffectInstance, 2f);
+                }
+            }
 
             if (collision.collider.TryGetComponent<Hitbox>(out var hitbox))
             {
