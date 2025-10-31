@@ -17,8 +17,6 @@ namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming
         [field: SerializeField, Header("Movement Settings")]
         public PlayerAimingProfile MovementProfile { get; private set; }
 
-
-        
         private CharacterControllerMotor _motor;
         private PlayerService _playerService;
         private bool _isSprintPressed;
@@ -28,6 +26,7 @@ namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming
         public bool IsGrounded => GroundCheck != null && GroundCheck.IsGrounded;
         public bool CanJump => GroundCheck != null && GroundCheck.TimeSinceGrounded < MovementProfile.CoyoteTime;
         public bool IsSprinting => _isSprintPressed;
+        public bool IsAiming { get; private set; }
         public Vector2 MoveInput { get; set; }
         public bool IsJumpHeld { get; set; }
         public float LastJumpInputTime { get; set; }
@@ -66,6 +65,7 @@ namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming
 
             EventBus.Instance.Subscribe<JumpInputEvent>(this, HandleJumpInput);
             EventBus.Instance.Subscribe<SprintInputEvent>(this, HandleSprint);
+            EventBus.Instance.Subscribe<LockOnInputEvent>(this, HandleAim);
         }
 
         private void HandleJumpInput(JumpInputEvent evt)
@@ -82,6 +82,12 @@ namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming
             _isSprintPressed = evt.IsPressed;
         }
 
+        private void HandleAim(LockOnInputEvent evt)
+        {
+            IsAiming = evt.IsPressed;
+            EventBus.Instance.Publish(new AimStateChangedEvent(IsAiming));
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
@@ -91,6 +97,7 @@ namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming
 
             EventBus.Instance?.Unsubscribe<JumpInputEvent>(this);
             EventBus.Instance?.Unsubscribe<SprintInputEvent>(this);
+            EventBus.Instance?.Unsubscribe<LockOnInputEvent>(this);
         }
     }
 }

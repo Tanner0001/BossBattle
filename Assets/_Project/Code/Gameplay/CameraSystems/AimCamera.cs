@@ -14,7 +14,6 @@ namespace _Project.Code.Gameplay.CameraSystems
         [SerializeField] private AimCameraProfile _profile;
 
         private CinemachineCamera _vcam;
-
         private CameraService _cameraService;
         private PlayerService _playerService;
 
@@ -22,6 +21,7 @@ namespace _Project.Code.Gameplay.CameraSystems
         private float _currentFOV;
         private float _currentPitch;
         private float _currentYaw;
+        private bool _isAiming;
 
         protected override void Awake()
         {
@@ -40,6 +40,7 @@ namespace _Project.Code.Gameplay.CameraSystems
             // Subscribe to events
             EventBus.Instance.Subscribe<PlayerRegisteredEvent>(this, OnPlayerRegistered);
             EventBus.Instance.Subscribe<LookInputEvent>(this, HandleLook);
+            EventBus.Instance.Subscribe<AimStateChangedEvent>(this, HandleAimStateChanged);
 
             // Auto-connect to player if available
             ConnectToPlayer();
@@ -56,17 +57,13 @@ namespace _Project.Code.Gameplay.CameraSystems
         {
             if (_vcam == null || _profile == null) return;
 
-            // We're directly parenting to the player, so we don't need CinemachineFollow
-            // Just set up the basic camera settings
-
-            // Set lens settings
             var lens = _vcam.Lens;
             lens.FieldOfView = _profile.FieldOfView;
             _vcam.Lens = lens;
 
             _vcam.Priority = _profile.Priority;
             _currentFOV = _profile.FieldOfView;
-            _currentOffset = _profile.Offset;
+            _currentOffset = _profile.HipFireOffset;
         }
 
         private void RegisterWithService()
@@ -80,16 +77,13 @@ namespace _Project.Code.Gameplay.CameraSystems
             var player = _playerService.GetPlayerTransform();
             if (player != null)
             {
-                // Find the attachment point on the player
                 var attachPoint = player.Find(_profile.AttachmentPoint);
                 if (attachPoint == null)
                 {
-                    // Fallback to player root if attachment point not found
                     attachPoint = player;
                     Debug.LogWarning($"Attachment point '{_profile.AttachmentPoint}' not found, using player root");
                 }
 
-                // Parent camera to attachment point
                 transform.SetParent(attachPoint);
                 transform.localPosition = _currentOffset;
                 transform.localRotation = Quaternion.identity;
@@ -102,16 +96,13 @@ namespace _Project.Code.Gameplay.CameraSystems
         {
             if (evt.Player != null)
             {
-                // Find the attachment point on the player
                 var attachPoint = evt.Player.Find(_profile.AttachmentPoint);
                 if (attachPoint == null)
                 {
-                    // Fallback to player root if attachment point not found
                     attachPoint = evt.Player;
                     Debug.LogWarning($"Attachment point '{_profile.AttachmentPoint}' not found, using player root");
                 }
 
-                // Parent camera to attachment point
                 transform.SetParent(attachPoint);
                 transform.localPosition = _currentOffset;
                 transform.localRotation = Quaternion.identity;
@@ -124,21 +115,43 @@ namespace _Project.Code.Gameplay.CameraSystems
         {
             if (_profile == null) return;
 
-            // Since we're parented to the player's head, we need to:
-            // 1. Rotate the player for yaw (horizontal look)
-            // 2. Apply pitch locally to the camera
-
-            // Accumulate input
             _currentYaw += evt.Input.x * _profile.LookSensitivityX;
             _currentPitch -= evt.Input.y * _profile.LookSensitivityY;
             _currentPitch = Mathf.Clamp(_currentPitch, _profile.MinPitch, _profile.MaxPitch);
+        }
+
+        private void HandleAimStateChanged(AimStateChangedEvent evt)
+        {
+            _isAiming = evt.IsAiming;
         }
 
         protected override void LateUpdate()
         {
             if (_profile == null) return;
 
-            // Apply yaw to player with damping
+            UpdateCameraState();
+            ApplyRotation();
+
+            base.LateUpdate();
+        }
+
+        private void UpdateCameraState()
+        {
+            // Update FOV
+            var targetFOV = _isAiming ? _profile.AimFOV : _profile.FieldOfView;
+            _currentFOV = Mathf.Lerp(_currentFOV, targetFOV, _profile.FOVTransitionSpeed * Time.deltaTime);
+            var lens = _vcam.Lens;
+            lens.FieldOfView = _currentFOV;
+            _vcam.Lens = lens;
+
+            // Update Offset
+            var targetOffset = _isAiming ? _profile.AimOffset : _profile.HipFireOffset;
+            _currentOffset = Vector3.Lerp(_currentOffset, targetOffset, _profile.OffsetTransitionSpeed * Time.deltaTime);
+            transform.localPosition = _currentOffset;
+        }
+
+        private void ApplyRotation()
+        {
             var player = _playerService.GetPlayerTransform();
             if (player != null)
             {
@@ -154,7 +167,6 @@ namespace _Project.Code.Gameplay.CameraSystems
                 }
             }
 
-            // Apply pitch to camera with damping
             var targetPitch = Quaternion.Euler(_currentPitch, 0, 0);
             if (_profile.RotationDamping > 0.01f)
             {
@@ -165,43 +177,13 @@ namespace _Project.Code.Gameplay.CameraSystems
             {
                 transform.localRotation = targetPitch;
             }
-
-            base.LateUpdate();
         }
-
-        public void SetOffset(Vector3 offset)
-        {
-            _currentOffset = offset;
-            transform.localPosition = _currentOffset;
-        }
-
-        private void Update()
-        {
-            if (_profile == null || _vcam == null) return;
-
-           // UpdateFieldOfView();
-        }
-
-        private void UpdateFieldOfView()
-        {
-            if (!_profile.DynamicFOV) return;
-
-            // TODO: Check player state for sprint/aim
-            var targetFOV = _profile.FieldOfView;
-
-            _currentFOV = Mathf.Lerp(_currentFOV, targetFOV, _profile.FOVTransitionSpeed * Time.deltaTime);
-
-            var lens = _vcam.Lens;
-            lens.FieldOfView = _currentFOV;
-            _vcam.Lens = lens;
-        }
-
-
 
         private void OnDestroy()
         {
             EventBus.Instance?.Unsubscribe<PlayerRegisteredEvent>(this);
             EventBus.Instance?.Unsubscribe<LookInputEvent>(this);
+            EventBus.Instance?.Unsubscribe<AimStateChangedEvent>(this);
         }
     }
 }

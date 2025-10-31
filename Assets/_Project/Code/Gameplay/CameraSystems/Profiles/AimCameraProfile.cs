@@ -6,8 +6,15 @@ namespace _Project.Code.Gameplay.CameraSystems.Profiles
     public class AimCameraProfile : CameraProfile
     {
         [field: SerializeField, Header("Position")]
-        [field: Tooltip("Position offset from the target")]
-        public Vector3 Offset { get; private set; } = new Vector3(0f, 1.8f, -4f);
+        [field: Tooltip("Position offset from the target for hip fire")]
+        public Vector3 HipFireOffset { get; private set; } = new Vector3(0f, 1.8f, -4f);
+
+        [field: SerializeField, Tooltip("Position offset from the target for aiming")]
+        public Vector3 AimOffset { get; private set; } = new Vector3(0f, 1.8f, -2f);
+
+        [field: SerializeField, Range(1f, 20f)]
+        [field: Tooltip("Speed of the transition between hip fire and aiming offsets")]
+        public float OffsetTransitionSpeed { get; private set; } = 10f;
 
         [field: SerializeField]
         [field: Tooltip("Name of the child transform to attach to (e.g., 'HeadTarget', 'CameraMount')")]
