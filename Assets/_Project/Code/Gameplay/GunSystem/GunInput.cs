@@ -8,6 +8,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
     {
         private GunBase _gun;
         private PlayerInputActions _input;
+        private bool _isFiring;
 
         private void Awake()
         {
@@ -18,26 +19,39 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         private void OnEnable()
         {
             _input.Enable();
-            _input.Gameplay.Attack.performed += OnAttack;
+            _input.Gameplay.Attack.started += OnAttackStarted;
+            _input.Gameplay.Attack.canceled += OnAttackCanceled;
 
             _input.Gameplay.LockOn.performed += OnLockOn;
         }
 
         private void OnDisable()
         {
-            _input.Gameplay.Attack.performed -= OnAttack;
+            _input.Gameplay.Attack.started -= OnAttackStarted;
+            _input.Gameplay.Attack.canceled -= OnAttackCanceled;
 
             _input.Gameplay.LockOn.performed -= OnLockOn;
             _input.Disable();
         }
 
-        private void OnAttack(InputAction.CallbackContext ctx)
+        private void Update()
         {
-            Debug.Log("Test attack pressed");
-            _gun.Fire();
+            if (_isFiring)
+            {
+                _gun.Fire();
+            }
         }
 
+        private void OnAttackStarted(InputAction.CallbackContext ctx)
+        {
+            Debug.Log("Test attack pressed");
+            _isFiring = true;
+        }
 
+        private void OnAttackCanceled(InputAction.CallbackContext ctx)
+        {
+            _isFiring = false;
+        }
 
         private void OnLockOn(InputAction.CallbackContext ctx)
         {
