@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 4062620584957560922}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.0000015199182, z: -0, w: 1}
-  m_LocalPosition: {x: 0.004, y: 0.116, z: 1.667}
+  m_LocalPosition: {x: 0.004, y: 0.116, z: 1.678}
   m_LocalScale: {x: 0.23155905, y: 0.23155905, z: 1.4855022}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 7752059071123245281}
   - component: {fileID: 4798701491660178852}
   - component: {fileID: 2121463133232012592}
+  - component: {fileID: 6414334242472978599}
   m_Layer: 0
   m_Name: Carbine_NOANIMSfbx
   m_TagString: Untagged
@@ -195,6 +196,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSmoothness: 10
+--- !u!114 &6414334242472978599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093724545452901327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672fca9a1f55c8e438b3a45cd3c84b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunTransform: {fileID: 3507124366649150871}
 --- !u!1 &7636853018378030737
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +225,7 @@ GameObject:
   - component: {fileID: 132123506309872536}
   - component: {fileID: 3475310545585299377}
   - component: {fileID: 7803903546495545621}
+  - component: {fileID: 4393739266674715457}
   m_Layer: 3
   m_Name: FPSPlayer
   m_TagString: Untagged
@@ -348,6 +363,19 @@ MonoBehaviour:
   muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 1f58a1dea6bbd9347843e4935585e6a2, type: 3}
   gunAnimator: {fileID: 0}
   muzzlePoint: {fileID: 1891536846417129452}
+--- !u!114 &4393739266674715457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636853018378030737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672fca9a1f55c8e438b3a45cd3c84b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunTransform: {fileID: 3507124366649150871}
 --- !u!1001 &4480929398283575940
 PrefabInstance:
   m_ObjectHideFlags: 0

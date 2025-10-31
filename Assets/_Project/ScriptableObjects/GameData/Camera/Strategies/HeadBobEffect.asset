@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HeadBobEffect
   m_EditorClassIdentifier: 
   <BobCyclesPerSecond>k__BackingField: 2.1
-  <VerticalBobDistance>k__BackingField: 0.083
-  <HorizontalBobDistance>k__BackingField: 0.0447
+  <VerticalBobDistance>k__BackingField: 0.048
+  <HorizontalBobDistance>k__BackingField: 0.0266
   <MinSpeedThreshold>k__BackingField: 0.5
   <OnlyWhenGrounded>k__BackingField: 1
   <FadeTime>k__BackingField: 0.15

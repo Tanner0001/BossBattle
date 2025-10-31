@@ -183,7 +183,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.09
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -962,8 +962,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Time Remaining: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 98240a43e8a6d6a4cb042ec31bd73b76, type: 2}
+  m_sharedMaterial: {fileID: 1677553589298474839, guid: 98240a43e8a6d6a4cb042ec31bd73b76, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1945,8 +1945,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'AMMO: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d0016b251e27e094eb9c51fe545f728a, type: 2}
+  m_sharedMaterial: {fileID: 8603886821445158418, guid: d0016b251e27e094eb9c51fe545f728a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

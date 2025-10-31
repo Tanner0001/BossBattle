@@ -23,3 +23,6 @@ MonoBehaviour:
   HitscanLayers:
     serializedVersion: 2
     m_Bits: 0
+  RecoilAmount: 0.1
+  RecoilSpeed: 1
+  RecoilRecoverySpeed: 5
