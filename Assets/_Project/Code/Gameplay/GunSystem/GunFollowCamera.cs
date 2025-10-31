@@ -15,9 +15,9 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         private void Start()
         {
             var cameraService = ServiceLocator.Get<CameraService>();
-            if (cameraService != null)
+            if (cameraService != null && cameraService.ActiveCameraTransform != null)
             {
-                _cameraTransform = cameraService.ActiveCameraTransform;
+                _cameraTransform = cameraService.ActiveVirtualCamera.transform;
             }
 
             _initialLocalRotation = transform.localRotation;
