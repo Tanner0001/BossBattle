@@ -14,18 +14,23 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
         private void Start()
         {
-            var cameraService = ServiceLocator.Get<CameraService>();
-            if (cameraService != null && cameraService.ActiveCameraTransform != null)
-            {
-                _cameraTransform = cameraService.ActiveVirtualCamera.transform;
-            }
-
             _initialLocalRotation = transform.localRotation;
         }
 
         private void LateUpdate()
         {
-            if (_cameraTransform == null) return;
+            if (_cameraTransform == null)
+            {
+                var cameraService = ServiceLocator.Get<CameraService>();
+                if (cameraService != null && cameraService.ActiveVirtualCamera != null)
+                {
+                    _cameraTransform = cameraService.ActiveVirtualCamera.transform;
+                }
+                else
+                {
+                    return; // Camera not ready yet
+                }
+            }
 
             Quaternion targetRotation = _cameraTransform.localRotation * _initialLocalRotation;
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * rotationSmoothness);
