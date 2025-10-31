@@ -8,6 +8,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
     {
         private GunBase _gun;
         private PlayerInputActions _input;
+        private bool _isFiring; // 1. new flag
 
         private void Awake()
         {
@@ -18,32 +19,52 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         private void OnEnable()
         {
             _input.Enable();
-            _input.Gameplay.Attack.performed += OnAttack;
+
+            // 2. subscribe to started/canceled instead of performed
+            _input.Gameplay.Attack.started += OnAttackStarted;
+            _input.Gameplay.Attack.canceled += OnAttackCanceled;
+
             _input.Gameplay.Reload.performed += OnReload;
             _input.Gameplay.LockOn.performed += OnLockOn;
         }
 
         private void OnDisable()
         {
-            _input.Gameplay.Attack.performed -= OnAttack;
+            // 5. cleanup all event handlers
+            _input.Gameplay.Attack.started -= OnAttackStarted;
+            _input.Gameplay.Attack.canceled -= OnAttackCanceled;
             _input.Gameplay.Reload.performed -= OnReload;
             _input.Gameplay.LockOn.performed -= OnLockOn;
+
             _input.Disable();
         }
 
-        private void OnAttack(InputAction.CallbackContext ctx)
+        private void Update()
         {
-            if (_gun == null) return;
-            Debug.Log("Test attack pressed");
-            _gun.Fire();
+            // 4. continuously check while holding fire
+            if (_isFiring && _gun != null)
+            {
+                _gun.Fire(); // GunBase handles fireRate internally
+            }
+        }
+
+        private void OnAttackStarted(InputAction.CallbackContext ctx)
+        {
+            _isFiring = true;
+            Debug.Log("Fire started (holding)");
+        }
+
+        private void OnAttackCanceled(InputAction.CallbackContext ctx)
+        {
+            _isFiring = false;
+            Debug.Log("Fire canceled (released)");
         }
 
         private void OnReload(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Test reload pressed");
-            _gun.Reload();
+            Debug.Log("Reload triggered");
+            _gun?.Reload();
         }
-
 
         private void OnLockOn(InputAction.CallbackContext ctx)
         {
