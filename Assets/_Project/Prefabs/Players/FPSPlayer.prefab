@@ -331,7 +331,7 @@ MonoBehaviour:
   fireSound: {fileID: 11400000, guid: 34384e84dc7f829458916110ae2b05ef, type: 2}
   reloadSound: {fileID: 11400000, guid: aaf06b54f5315614eb496e30ed4bf762, type: 2}
   emptySound: {fileID: 11400000, guid: d8e8b497f65a1924db77ad2fb5471759, type: 2}
-  muzzleFlash: {fileID: 7980029976762078213, guid: 1f58a1dea6bbd9347843e4935585e6a2, type: 3}
+  muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 1f58a1dea6bbd9347843e4935585e6a2, type: 3}
   gunAnimator: {fileID: 0}
   muzzlePoint: {fileID: 1891536846417129452}
 --- !u!1001 &4480929398283575940
