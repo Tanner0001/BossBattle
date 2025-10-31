@@ -15,7 +15,9 @@ MonoBehaviour:
   <Priority>k__BackingField: 10
   <BlendTime>k__BackingField: 1
   <FieldOfView>k__BackingField: 60
-  <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+  <HipFireOffset>k__BackingField: {x: 0, y: 0, z: 0.1}
+  <AimOffset>k__BackingField: {x: 0, y: 0, z: 0}
+  <OffsetTransitionSpeed>k__BackingField: 10
   <AttachmentPoint>k__BackingField: HeadRoot
   <RotationDamping>k__BackingField: 0.1
   <LookSensitivityX>k__BackingField: 0.3
