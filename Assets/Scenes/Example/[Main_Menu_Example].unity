@@ -1145,6 +1145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[SceneGameState]'
       objectReference: {fileID: 0}
+    - target: {fileID: 3637209115067561980, guid: c0dd2abb67b903e48a128ae2c1e1b37f, type: 3}
+      propertyPath: _initialState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8315319732763613030, guid: c0dd2abb67b903e48a128ae2c1e1b37f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.0321753

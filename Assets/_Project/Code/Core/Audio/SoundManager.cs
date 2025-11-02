@@ -14,6 +14,7 @@ namespace _Project.Code.Core.Audio
         private void Awake()
         {
             _audioSourcePool = new AudioSourcePool(transform);
+            DontDestroyOnLoad(this.gameObject);
         }
 
         public override void Initialize()

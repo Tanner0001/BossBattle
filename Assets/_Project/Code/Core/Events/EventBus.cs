@@ -123,7 +123,7 @@ namespace _Project.Code.Core.Events
             _isPublishing = false;
         }
 
-        protected override bool PersistBetweenScenes => false;
+        protected override bool PersistBetweenScenes => true;
 
         private void OnDestroy()
         {

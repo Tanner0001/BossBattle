@@ -10,6 +10,10 @@ namespace _Project.Code.Core.ServiceLocator
         [Header("Persistent Services")]
         [SerializeField] private List<MonoBehaviourService> _servicePrefabs = new();
 
+        [Header("Scene Loading")]
+        [SerializeField] private bool _loadSceneOnStart = true;
+        [SerializeField] private string _sceneToLoad;
+
         private static bool _isInitialized = false;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -30,6 +34,12 @@ namespace _Project.Code.Core.ServiceLocator
             DontDestroyOnLoad(gameObject);
 
             InitializeServices();
+
+            if (_loadSceneOnStart)
+            {
+                LoadInitalScene();
+            }
+
         }
 
         private void InitializeServices()
@@ -62,5 +72,20 @@ namespace _Project.Code.Core.ServiceLocator
 
             Debug.Log("[GameInitializer] Service initialization complete");
         }
+
+        private void LoadInitalScene()
+        {
+            var sceneService = ServiceLocator.Get<SceneService>();
+            if (sceneService != null)
+            {
+                sceneService.LoadSceneAsync(_sceneToLoad);
+
+            }
+            else
+            {
+                Debug.Log("Scene wont load, scene service is not found");
+            }
+        }
+
     }
 }
