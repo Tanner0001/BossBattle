@@ -2380,6 +2380,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3475310545585299377, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
+      propertyPath: muzzlePoint
+      value: 
+      objectReference: {fileID: 1875916765}
+    - target: {fileID: 4393739266674715457, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
+      propertyPath: gunTransform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7636853018378030737, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
       propertyPath: m_Name
       value: FPSPlayer
@@ -3359,6 +3367,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a32a842e470aef84f92516c0d08c2131, type: 3}
+--- !u!4 &1875916765 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 384113832902278604, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
+  m_PrefabInstance: {fileID: 1106026052}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1943708175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6489218497051023958, guid: 4a1f738c238515b4b99fbf8004b2df2d, type: 3}
