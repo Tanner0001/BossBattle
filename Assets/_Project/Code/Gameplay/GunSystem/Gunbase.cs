@@ -1,5 +1,6 @@
 using UnityEngine;
 using _Project.Code.Core.Events;
+using System.Collections;
 
 namespace _Project.Code.Gameplay.Combat.GunSystem
 {
@@ -60,7 +61,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             EventBus.Instance.Publish(new GunFiredEvent());
             EventBus.Instance.Publish(new AmmoChangedEvent(_currentAmmo, gunData.MaxAmmo));
 
-            Invoke(nameof(ResetFire), gunData.FireRate);
+            StartCoroutine(ResetFireCoroutine(gunData.FireRate));
         }
 
         private void FireProjectile()
@@ -108,11 +109,12 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             _feedback?.PlayReloadFeedback();
             EventBus.Instance.Publish(new ReloadEvent());
 
-            Invoke(nameof(FinishReload), gunData.ReloadTime);
+            StartCoroutine(ReloadCoroutine(gunData.ReloadTime));
         }
 
-        private void FinishReload()
+        private IEnumerator ReloadCoroutine(float reloadTime)
         {
+            yield return new WaitForSeconds(reloadTime);
             if (gunData != null)
             {
                 _currentAmmo = gunData.MaxAmmo;
@@ -121,6 +123,10 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             }
         }
 
-        private void ResetFire() => _canFire = true;
+        private IEnumerator ResetFireCoroutine(float fireRate)
+        {
+            yield return new WaitForSeconds(fireRate);
+            _canFire = true;
+        }
     }
 }
