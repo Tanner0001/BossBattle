@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6316727876867341397}
   - component: {fileID: 8452151431847405609}
   - component: {fileID: 9161276599143878532}
+  - component: {fileID: 2460309078046238286}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -152,3 +153,17 @@ MonoBehaviour:
   speed: 55
   lifeTime: 3
   impactEffectPrefab: {fileID: 100006, guid: 94a130fb17f1cae4388a8fe1d8bd3055, type: 3}
+--- !u!114 &2460309078046238286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647522053195157486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd26c58bb5696b746b75b4117427a6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 150
+  MaxLifetime: 2

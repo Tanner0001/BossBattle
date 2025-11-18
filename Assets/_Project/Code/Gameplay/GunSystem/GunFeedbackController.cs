@@ -13,7 +13,6 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
 
         [Header("Visuals")]
         [SerializeField] private GameObject muzzleFlashPrefab;
-        [SerializeField] private Animator gunAnimator;
         [SerializeField] private Transform muzzlePoint;
 
         public void PlayFireFeedback()
@@ -35,18 +34,12 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
                     Destroy(muzzleFlashInstance, 2f);
                 }
             }
-
-            if (gunAnimator != null)
-                gunAnimator.SetTrigger("Fire");
         }
 
         public void PlayReloadFeedback()
         {
             if (reloadSound != null)
                 EventBus.Instance.Publish(new PlaySoundEvent(reloadSound, transform.position));
-
-            if (gunAnimator != null)
-                gunAnimator.SetTrigger("Reload");
         }
 
         public void PlayEmptyFeedback()

@@ -5,6 +5,7 @@ using _Project.Code.Core.Events;
 using _Project.Code.Gameplay.Input;
 using _Project.Code.Gameplay.CameraSystems;
 using _Project.Code.Gameplay.Animation;
+using _Project.Code.Gameplay.Player.Events;
 
 namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming.States
 {
@@ -21,6 +22,7 @@ namespace _Project.Code.Gameplay.PlayerControllers.PlayerAiming.States
             base.Enter();
             EventBus.Instance.Subscribe<JumpInputEvent>(this, HandleJump);
             EventBus.Instance.Subscribe<SprintInputEvent>(this, HandleSprint);
+
         }
 
         public override void Update()

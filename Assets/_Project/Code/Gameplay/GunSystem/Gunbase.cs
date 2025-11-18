@@ -92,11 +92,36 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
                 return;
             }
 
-            if (Physics.Raycast(muzzlePoint.position, muzzlePoint.forward, out var hit, gunData.HitscanRange, gunData.HitscanLayers))
+            Vector3 startPoint = muzzlePoint.position;
+            Vector3 direction = muzzlePoint.forward;
+            Vector3 endPoint;
+
+            if (Physics.Raycast(startPoint, direction, out var hit, gunData.HitscanRange, gunData.HitscanLayers))
             {
+                endPoint = hit.point;
                 if (hit.collider.TryGetComponent<Hitbox>(out var hitbox))
                 {
                     hitbox.ApplyDamage(gunData.Damage);
+                }
+            }
+            else
+            {
+                endPoint = startPoint + direction * gunData.HitscanRange;
+            }
+
+            // Use the projectile script for the visual tracer
+            if (gunData.HitscanVisualPrefab != null)
+            {
+                var visualInstance = Instantiate(gunData.HitscanVisualPrefab, startPoint, Quaternion.LookRotation(direction));
+                if (visualInstance.TryGetComponent<Projectile>(out var projectileTracer))
+                {
+                    projectileTracer.InitializeAsVisualTracer(endPoint);
+                }
+                else
+                {
+                    // Fallback for prefabs without the projectile script
+                    Debug.LogWarning($"Prefab {gunData.HitscanVisualPrefab.name} is missing Projectile script for visual tracer. Destroying after 2 seconds.");
+                    Destroy(visualInstance, 2f);
                 }
             }
         }

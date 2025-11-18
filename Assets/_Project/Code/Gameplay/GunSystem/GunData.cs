@@ -27,6 +27,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         [Header("Hitscan Settings (if FireMode is Hitscan)")]
         public float HitscanRange = 100f;
         public LayerMask HitscanLayers;
+        public GameObject HitscanVisualPrefab;
 
         [Header("Recoil")]
         public float RecoilAmount = 0.1f;
