@@ -243,7 +243,7 @@ MonoBehaviour:
   fireSound: {fileID: 11400000, guid: 34384e84dc7f829458916110ae2b05ef, type: 2}
   reloadSound: {fileID: 11400000, guid: aaf06b54f5315614eb496e30ed4bf762, type: 2}
   emptySound: {fileID: 11400000, guid: d8e8b497f65a1924db77ad2fb5471759, type: 2}
-  muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 1f58a1dea6bbd9347843e4935585e6a2, type: 3}
+  muzzleFlashPrefab: {fileID: 100000, guid: 8eaaa4f553116f44b8459bc24201c514, type: 3}
   gunAnimator: {fileID: 0}
   muzzlePoint: {fileID: 1228990260357249249}
 --- !u!114 &4393739266674715457
@@ -272,16 +272,28 @@ PrefabInstance:
       value: Rifle 2
       objectReference: {fileID: 0}
     - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5568
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5568
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5568
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.00000049174
       objectReference: {fileID: 0}
     - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.28
+      value: -1.617
       objectReference: {fileID: 0}
     - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.16753
       objectReference: {fileID: 0}
     - target: {fileID: 7384669850491796501, guid: 014d65505ebc3fb43b407bba8acd33ed, type: 3}
       propertyPath: m_LocalRotation.w
