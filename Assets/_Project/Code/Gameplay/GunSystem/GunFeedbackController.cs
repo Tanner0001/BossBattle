@@ -18,7 +18,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         public void PlayFireFeedback()
         {
             if (fireSound != null)
-                EventBus.Instance.Publish(new PlaySoundEvent(fireSound, muzzlePoint.position));
+                EventBus.Instance.Publish(new PlaySoundEvent(fireSound, muzzlePoint.position, muzzlePoint));
             else
                 Debug.LogWarning("GunFeedbackController: Missing FireSound!", this);
 
@@ -39,13 +39,13 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         public void PlayReloadFeedback()
         {
             if (reloadSound != null)
-                EventBus.Instance.Publish(new PlaySoundEvent(reloadSound, transform.position));
+                EventBus.Instance.Publish(new PlaySoundEvent(reloadSound, transform.position, transform));
         }
 
         public void PlayEmptyFeedback()
         {
             if (emptySound != null)
-                EventBus.Instance.Publish(new PlaySoundEvent(emptySound, transform.position));
+                EventBus.Instance.Publish(new PlaySoundEvent(emptySound, transform.position, transform));
         }
     }
 }

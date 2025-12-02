@@ -8,11 +8,13 @@ namespace _Project.Code.Core.Audio
     {
         public SoundEvent SoundEvent { get; }
         public Vector3 Position { get; }
+        public Transform ParentTransform { get; }
 
-        public PlaySoundEvent(SoundEvent soundEvent, Vector3 position)
+        public PlaySoundEvent(SoundEvent soundEvent, Vector3 position, Transform parentTransform = null)
         {
             SoundEvent = soundEvent;
             Position = position;
+            ParentTransform = parentTransform;
         }
     }
 }

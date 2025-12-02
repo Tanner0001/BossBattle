@@ -16,15 +16,33 @@ namespace _Project.Code.Core.Audio
 
         public AudioSource Get()
         {
-            foreach (var source in _pool)
+            // Iterate in reverse to safely remove elements during iteration
+            for (int i = _pool.Count - 1; i >= 0; i--)
             {
-                if (!source.isPlaying)
+                var source = _pool[i];
+                if (source == null) // If the source was destroyed externally
                 {
+                    _pool.RemoveAt(i);
+                    continue;
+                }
+
+                if (!source.isPlaying && !source.gameObject.activeInHierarchy)
+                {
+                    source.gameObject.SetActive(true); // Reactivate before returning
                     return source;
                 }
             }
 
             return CreateNewSource();
+        }
+
+        public void Return(AudioSource source)
+        {
+            source.Stop();
+            source.clip = null; // Clear clip
+            source.transform.SetParent(_parent); // Re-parent to pool root
+            source.transform.localPosition = Vector3.zero; // Reset position
+            source.gameObject.SetActive(false); // Deactivate for reuse
         }
 
         private AudioSource CreateNewSource()
