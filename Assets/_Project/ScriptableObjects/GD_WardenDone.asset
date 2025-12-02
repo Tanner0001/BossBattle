@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f81d079efbd45408cc9e3826a27223, type: 3}
+  m_Name: GD_WardenDone
+  m_EditorClassIdentifier: 
+  GunName: PatrolDone
+  FireMode: 1
+  Damage: 25
+  MaxAmmo: 20
+  FireRate: 0.2
+  ReloadTime: 1.5
+  ProjectilePrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
+  HitscanRange: 100
+  HitscanLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  HitscanVisualPrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
+  RecoilAmount: 0.1
+  RecoilSpeed: 10
+  RecoilRecoverySpeed: 5

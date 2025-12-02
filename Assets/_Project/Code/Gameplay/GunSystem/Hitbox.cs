@@ -5,22 +5,27 @@ namespace _Project.Code.Gameplay.Combat
 {
     public class Hitbox : MonoBehaviour
     {
-        [SerializeField] private float health = 50f;
+        [SerializeField] private float maxHealth = 50f;
         [SerializeField] private Renderer targetRenderer;
+        
+        public float CurrentHealth { get; private set; }
+        public float MaxHealth => maxHealth;
+
         private Color _originalColor;
 
         private void Start()
         {
+            CurrentHealth = maxHealth;
             if (targetRenderer != null)
                 _originalColor = targetRenderer.material.color;
         }
 
         public void ApplyDamage(float amount)
         {
-            health -= amount;
+            CurrentHealth -= amount;
             FlashHit();
 
-            if (health <= 0)
+            if (CurrentHealth <= 0)
                 Die();
         }
 
