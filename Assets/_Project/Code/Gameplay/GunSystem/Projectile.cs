@@ -76,7 +76,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             {
                 ContactPoint contact = collision.contacts[0];
                 Quaternion rotation = Quaternion.LookRotation(contact.normal);
-                var impactEffectInstance = Instantiate(impactEffectPrefab, contact.point, rotation);
+                var impactEffectInstance = Instantiate(impactEffectPrefab, contact.point, rotation, collision.transform);
 
                 if (impactEffectInstance.TryGetComponent<ParticleSystem>(out var particleSystem))
                 {
