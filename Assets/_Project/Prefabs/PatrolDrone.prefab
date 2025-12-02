@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3408367036832406743}
   - component: {fileID: 4879863506670406271}
   - component: {fileID: 8926553589509028862}
-  - component: {fileID: 6773697860245427037}
   m_Layer: 0
   m_Name: PatrolDroneModel
   m_TagString: Untagged
@@ -88,27 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6773697860245427037
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3166821671682892602}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5168012932561443043
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +212,7 @@ GameObject:
   - component: {fileID: 3005333164810261909}
   - component: {fileID: 215945006106146225}
   - component: {fileID: 4825962105686473920}
+  - component: {fileID: 56505619167177008}
   m_Layer: 0
   m_Name: PatrolDrone
   m_TagString: Untagged
@@ -318,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dab60631c276a54d83aab4a6d76341e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 10
   targetRenderer: {fileID: 0}
 --- !u!114 &4825962105686473920
 MonoBehaviour:
@@ -342,9 +321,33 @@ MonoBehaviour:
     m_Bits: 0
   playerTransform: {fileID: 3408367036832406743}
   isWarden: 0
+  enableDebugLogging: 1
+  combatStoppingDistance: 10
   patrolRoute: {fileID: 0}
+  searchDuration: 5
   retreatPoint: {fileID: 0}
   retreatHealthPercentage: 0.75
+--- !u!135 &56505619167177008
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7646399236162691647}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 1.39, z: 0}
 --- !u!1 &7947750961275309652
 GameObject:
   m_ObjectHideFlags: 0

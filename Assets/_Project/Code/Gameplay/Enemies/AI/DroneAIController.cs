@@ -15,6 +15,9 @@ namespace _Project.Code.Gameplay.Enemies.AI
         private GunBase _gun;
         private Hitbox _hitbox;
         private FiniteStateMachine<BaseState> _stateMachine;
+        private float _searchTimer;
+
+        private float _defaultStoppingDistance;
 
         // Configuration
         [Header("Sight Config")]
@@ -26,13 +29,30 @@ namespace _Project.Code.Gameplay.Enemies.AI
         [Header("AI Config")]
         [SerializeField] private Transform playerTransform; // TEMP: Should use a targeting system
         [SerializeField] private bool isWarden = false; // Flag to determine if this is a warden
+        [SerializeField] private bool enableDebugLogging = false;
+
+        [Header("Combat Config")]
+        [SerializeField] private float combatStoppingDistance = 10f;
 
         [Header("Patrol Config")]
         [SerializeField] private PatrolRoute patrolRoute;
+
+        [Header("Search Config")] 
+        [SerializeField] private float searchDuration = 5f;
         
         [Header("Retreat Config")]
         [SerializeField] private Transform retreatPoint;
         [SerializeField] private float retreatHealthPercentage = 0.75f;
+
+        // Public Properties for State access
+        public NavMeshAgent Agent => _agent;
+        public GunBase Gun => _gun;
+        public Hitbox Hitbox => _hitbox;
+        public Transform PlayerTransform => playerTransform;
+        public FiniteStateMachine<BaseState> StateMachine => _stateMachine;
+        public float SearchDuration => searchDuration;
+        public float DefaultStoppingDistance => _defaultStoppingDistance;
+        public float CombatStoppingDistance => combatStoppingDistance;
 
 
         private void Awake()
@@ -40,6 +60,8 @@ namespace _Project.Code.Gameplay.Enemies.AI
             _agent = GetComponent<NavMeshAgent>();
             _gun = GetComponent<GunBase>();
             _hitbox = GetComponent<Hitbox>();
+            
+            _defaultStoppingDistance = _agent.stoppingDistance;
 
             // TODO: Find player transform properly via a system
             if (playerTransform == null)
@@ -50,15 +72,25 @@ namespace _Project.Code.Gameplay.Enemies.AI
         {
             var patrolState = new PatrolState(this);
             var combatState = new CombatState(this);
+            var searchState = new SearchState(this);
             
             _stateMachine = new FiniteStateMachine<BaseState>(patrolState);
             _stateMachine.AddState(combatState);
+            _stateMachine.AddState(searchState);
             
             if (isWarden)
             {
                 var retreatState = new RetreatState(this);
                 _stateMachine.AddState(retreatState);
             }
+            
+            _stateMachine.OnStateChanged += LogStateChange;
+        }
+
+        private void OnDestroy()
+        {
+            if (_stateMachine != null)
+                _stateMachine.OnStateChanged -= LogStateChange;
         }
 
         private void Update()
@@ -72,23 +104,29 @@ namespace _Project.Code.Gameplay.Enemies.AI
             if (_stateMachine.CurrentState is PatrolState)
             {
                 if (CanSeePlayer())
-                {
                     _stateMachine.TransitionTo<CombatState>();
-                }
             }
             else if (_stateMachine.CurrentState is CombatState)
             {
-                if (isWarden)
+                if (isWarden && _hitbox.CurrentHealth / _hitbox.MaxHealth <= retreatHealthPercentage)
                 {
-                    float healthPercent = _hitbox.CurrentHealth / _hitbox.MaxHealth;
-                    if (healthPercent <= retreatHealthPercentage)
-                    {
-                        _stateMachine.TransitionTo<RetreatState>();
-                        return; // Exit to avoid other transitions
-                    }
+                    _stateMachine.TransitionTo<RetreatState>();
+                    return;
                 }
-                
+        
                 if (!CanSeePlayer())
+                    _stateMachine.TransitionTo<SearchState>();
+            }
+            else if (_stateMachine.CurrentState is SearchState)
+            {
+                if (CanSeePlayer())
+                {
+                    _stateMachine.TransitionTo<CombatState>();
+                    return;
+                }
+
+                _searchTimer += Time.deltaTime;
+                if (_searchTimer > searchDuration || _agent.remainingDistance < _agent.stoppingDistance)
                 {
                     _stateMachine.TransitionTo<PatrolState>();
                 }
@@ -135,7 +173,7 @@ namespace _Project.Code.Gameplay.Enemies.AI
             Gizmos.DrawLine(transform.position, transform.position + viewAngleA * viewRadius);
             Gizmos.DrawLine(transform.position, transform.position + viewAngleB * viewRadius);
 
-            if (CanSeePlayer())
+            if (Application.isPlaying && CanSeePlayer())
             {
                 Gizmos.color = Color.green;
                 if(playerTransform != null)
@@ -151,12 +189,21 @@ namespace _Project.Code.Gameplay.Enemies.AI
             }
             return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }
+
+        private void LogStateChange(IState from, IState to)
+        {
+            if (enableDebugLogging)
+            {
+                Debug.Log($"[Drone AI] State Change: {from?.GetType().Name ?? "None"} -> {to?.GetType().Name ?? "None"}", this);
+            }
+        }
         
+        public void ResetSearchTimer()
+        {
+            _searchTimer = 0f;
+        }
+
         // Public properties/methods for states to use
-        public NavMeshAgent Agent => _agent;
-        public GunBase Gun => _gun;
-        public Hitbox Hitbox => _hitbox;
-        public Transform PlayerTransform => playerTransform;
         public PatrolRoute GetPatrolRoute() => patrolRoute;
         public Transform GetRetreatPoint() => retreatPoint;
     }

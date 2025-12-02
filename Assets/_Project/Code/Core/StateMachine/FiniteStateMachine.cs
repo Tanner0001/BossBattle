@@ -8,6 +8,7 @@ namespace _Project.Code.Core.StateMachine
         private readonly Dictionary<Type, T> _states = new();
         
         public T CurrentState { get; protected set; }
+        public event Action<T, T> OnStateChanged;
 
         public FiniteStateMachine(T initialState)
         {
@@ -42,9 +43,11 @@ namespace _Project.Code.Core.StateMachine
             if ((object)CurrentState == (object)nextState)
                 return;
 
+            var previousState = CurrentState;
             CurrentState?.Exit();
             CurrentState = nextState;
             CurrentState.Enter();
+            OnStateChanged?.Invoke(previousState, CurrentState);
         }
 
         public TState GetState<TState>() where TState : T
