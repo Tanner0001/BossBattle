@@ -8359,11 +8359,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2166003813769906191, guid: 65fb8416db1735e449d5e982033da7bd, type: 3}
   m_PrefabInstance: {fileID: 473086516}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &482116365 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7636853018378030737, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
-  m_PrefabInstance: {fileID: 1106026052}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &487702193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18216,6 +18211,7 @@ MonoBehaviour:
   m_Script: {fileID: 2059134375}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &1096915871
 Transform:
   m_ObjectHideFlags: 19
@@ -18469,35 +18465,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSPlayer
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4788875391171874000, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
-    - {fileID: 4573463873609965160, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7636853018378030737, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1106026054}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
 --- !u!4 &1106026053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2986544758558342657, guid: 0a6df1c2fe3e1ac4fbe9321fc7ed41b6, type: 3}
   m_PrefabInstance: {fileID: 1106026052}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1106026054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482116365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dab60631c276a54d83aab4a6d76341e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 50
-  targetRenderer: {fileID: 0}
 --- !u!1001 &1106146195
 PrefabInstance:
   m_ObjectHideFlags: 0

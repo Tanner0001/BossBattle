@@ -14,6 +14,8 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
 
         public override void Enter()
         {
+            // Take control of rotation
+            _controller.Agent.updateRotation = false;
             // Set the agent to stop at a specific distance for combat
             _controller.Agent.stoppingDistance = _controller.CombatStoppingDistance;
         }
@@ -33,9 +35,17 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
             if (lookPos.sqrMagnitude > 0.001f)
             {
                 var rotation = Quaternion.LookRotation(lookPos);
-                _controller.transform.rotation = Quaternion.Slerp(_controller.transform.rotation, rotation, Time.deltaTime * _controller.Agent.angularSpeed);
+                // Use a dedicated rotation speed for responsiveness
+                _controller.transform.rotation = Quaternion.Slerp(_controller.transform.rotation, rotation, Time.deltaTime * 10f);
             }
 
+            // Check for ammo before firing
+            if (_controller.Gun.CurrentAmmo <= 0)
+            {
+                _controller.StateMachine.TransitionTo<ReloadState>();
+                return;
+            }
+            
             // Fire weapon only if we have line of sight
             if (_controller.CanSeePlayer())
             {
@@ -45,6 +55,8 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
 
         public override void Exit()
         {
+            // Give control of rotation back to the agent
+            _controller.Agent.updateRotation = true;
             // Reset stopping distance to its default value
             _controller.Agent.stoppingDistance = _controller.DefaultStoppingDistance;
         }

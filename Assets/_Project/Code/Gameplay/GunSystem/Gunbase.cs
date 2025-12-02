@@ -17,6 +17,9 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         private bool _canFire = true;
         private bool _isReloading = false;
 
+        public bool IsReloading => _isReloading;
+        public int CurrentAmmo => _currentAmmo;
+
         private GunFeedbackController _feedback;
         private GunRecoil _gunRecoil;
 

@@ -73,10 +73,12 @@ namespace _Project.Code.Gameplay.Enemies.AI
             var patrolState = new PatrolState(this);
             var combatState = new CombatState(this);
             var searchState = new SearchState(this);
+            var reloadState = new ReloadState(this);
             
             _stateMachine = new FiniteStateMachine<BaseState>(patrolState);
             _stateMachine.AddState(combatState);
             _stateMachine.AddState(searchState);
+            _stateMachine.AddState(reloadState);
             
             if (isWarden)
             {
