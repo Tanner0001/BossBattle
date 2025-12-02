@@ -15,7 +15,7 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
         {
             if (_controller.PlayerTransform != null)
             {
-                _controller.Agent.SetDestination(_controller.PlayerTransform.position);
+                _controller.Agent.SetDestination(_controller.GetPlayerNavMeshPosition());
             }
             _controller.ResetSearchTimer();
         }

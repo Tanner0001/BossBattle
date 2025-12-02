@@ -25,7 +25,7 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
             if (_controller.PlayerTransform == null) return;
 
             // Continuously update destination to chase the player
-            _controller.Agent.SetDestination(_controller.PlayerTransform.position);
+            _controller.Agent.SetDestination(_controller.GetPlayerNavMeshPosition());
             
             // Aim at player
             var lookPos = _controller.PlayerTransform.position - _controller.transform.position;
@@ -36,7 +36,7 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
             {
                 var rotation = Quaternion.LookRotation(lookPos);
                 // Use a dedicated rotation speed for responsiveness
-                _controller.transform.rotation = Quaternion.Slerp(_controller.transform.rotation, rotation, Time.deltaTime * 10f);
+                _controller.ModelRoot.rotation = Quaternion.Slerp(_controller.ModelRoot.rotation, rotation, Time.deltaTime * 10f);
             }
 
             // Check for ammo before firing

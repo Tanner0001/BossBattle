@@ -44,6 +44,10 @@ namespace _Project.Code.Gameplay.Enemies.AI
         [SerializeField] private Transform retreatPoint;
         [SerializeField] private float retreatHealthPercentage = 0.75f;
 
+        [Header("Model Config")]
+        [Tooltip("The transform representing the visual root of the drone's model. Used for rotation and view origin. If not set, defaults to the main transform.")]
+        [SerializeField] private Transform modelRoot;
+
         // Public Properties for State access
         public NavMeshAgent Agent => _agent;
         public GunBase Gun => _gun;
@@ -53,6 +57,7 @@ namespace _Project.Code.Gameplay.Enemies.AI
         public float SearchDuration => searchDuration;
         public float DefaultStoppingDistance => _defaultStoppingDistance;
         public float CombatStoppingDistance => combatStoppingDistance;
+        public Transform ModelRoot => modelRoot;
 
 
         private void Awake()
@@ -62,6 +67,9 @@ namespace _Project.Code.Gameplay.Enemies.AI
             _hitbox = GetComponent<Hitbox>();
             
             _defaultStoppingDistance = _agent.stoppingDistance;
+
+            if (modelRoot == null)
+                modelRoot = transform;
 
             // TODO: Find player transform properly via a system
             if (playerTransform == null)
@@ -139,17 +147,17 @@ namespace _Project.Code.Gameplay.Enemies.AI
         {
             if (playerTransform == null) return false;
 
-            Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
+            Collider[] targetsInViewRadius = Physics.OverlapSphere(ModelRoot.position, viewRadius, playerMask);
 
             foreach (var target in targetsInViewRadius)
             {
                 Transform targetTransform = target.transform;
-                Vector3 dirToTarget = (targetTransform.position - transform.position).normalized;
+                Vector3 dirToTarget = (targetTransform.position - ModelRoot.position).normalized;
 
-                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                if (Vector3.Angle(ModelRoot.forward, dirToTarget) < viewAngle / 2)
                 {
-                    float distToTarget = Vector3.Distance(transform.position, targetTransform.position);
-                    if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                    float distToTarget = Vector3.Distance(ModelRoot.position, targetTransform.position);
+                    if (!Physics.Raycast(ModelRoot.position, dirToTarget, distToTarget, obstacleMask))
                     {
                         return true; // Player is visible
                     }
@@ -165,21 +173,23 @@ namespace _Project.Code.Gameplay.Enemies.AI
         
         private void OnDrawGizmosSelected()
         {
+            if (ModelRoot == null) return; // Use ModelRoot for safety
+
             Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, viewRadius);
+            Gizmos.DrawWireSphere(ModelRoot.position, viewRadius);
 
             Vector3 viewAngleA = DirFromAngle(-viewAngle / 2, false);
             Vector3 viewAngleB = DirFromAngle(viewAngle / 2, false);
 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(transform.position, transform.position + viewAngleA * viewRadius);
-            Gizmos.DrawLine(transform.position, transform.position + viewAngleB * viewRadius);
+            Gizmos.DrawLine(ModelRoot.position, ModelRoot.position + viewAngleA * viewRadius);
+            Gizmos.DrawLine(ModelRoot.position, ModelRoot.position + viewAngleB * viewRadius);
 
             if (Application.isPlaying && CanSeePlayer())
             {
                 Gizmos.color = Color.green;
                 if(playerTransform != null)
-                    Gizmos.DrawLine(transform.position, playerTransform.position);
+                    Gizmos.DrawLine(ModelRoot.position, playerTransform.position);
             }
         }
 
@@ -187,7 +197,7 @@ namespace _Project.Code.Gameplay.Enemies.AI
         {
             if (!angleIsGlobal)
             {
-                angleInDegrees += transform.eulerAngles.y;
+                angleInDegrees += ModelRoot.eulerAngles.y;
             }
             return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }
@@ -203,6 +213,17 @@ namespace _Project.Code.Gameplay.Enemies.AI
         public void ResetSearchTimer()
         {
             _searchTimer = 0f;
+        }
+
+        public Vector3 GetPlayerNavMeshPosition()
+        {
+            if (playerTransform == null) return Vector3.zero; // Or some default safe position
+
+            if (NavMesh.SamplePosition(playerTransform.position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+            {
+                return hit.position;
+            }
+            return playerTransform.position; // Fallback if no NavMesh found nearby, though this should be rare.
         }
 
         // Public properties/methods for states to use

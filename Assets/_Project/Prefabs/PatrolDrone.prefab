@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dab60631c276a54d83aab4a6d76341e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   targetRenderer: {fileID: 0}
 --- !u!114 &4825962105686473920
 MonoBehaviour:
@@ -328,6 +328,7 @@ MonoBehaviour:
   searchDuration: 5
   retreatPoint: {fileID: 0}
   retreatHealthPercentage: 0.75
+  modelRoot: {fileID: 3408367036832406743}
 --- !u!135 &56505619167177008
 SphereCollider:
   m_ObjectHideFlags: 0
