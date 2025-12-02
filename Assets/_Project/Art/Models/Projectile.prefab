@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c01ffa4d2ed53574d9d73401f7d2ce51, type: 2}
+  - {fileID: 2100000, guid: f7c95439a085a254ca40ba8487d308ac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -151,4 +151,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 55
   lifeTime: 3
-  impactEffectPrefab: {fileID: 100006, guid: 94a130fb17f1cae4388a8fe1d8bd3055, type: 3}
+  defaultImpactPrefab: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
+  playerImpactPrefab: {fileID: 100002, guid: 3b1513bcb86426b4795879be6a128ed7, type: 3}

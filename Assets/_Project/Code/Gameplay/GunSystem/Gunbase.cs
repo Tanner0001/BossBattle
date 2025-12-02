@@ -84,6 +84,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             if (projectileInstance.TryGetComponent<Projectile>(out var projectile))
             {
                 projectile.Damage = gunData.Damage;
+                projectile.PlayerLayer = gunData.PlayerLayer; // Pass the PlayerLayer
             }
         }
 

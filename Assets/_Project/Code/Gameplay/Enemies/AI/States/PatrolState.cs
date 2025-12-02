@@ -17,6 +17,10 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
 
         public override void Enter()
         {
+            _controller.CurrentPatrolScanOffset = 0; // Reset scan offset
+            _controller.Agent.updateRotation = false; // Take control of rotation
+            _controller.PatrolScanTimeOffset = Random.Range(0f, 100f); // Initialize random offset for desynchronized scanning
+
             var route = _controller.GetPatrolRoute();
             if (route != null && route.Waypoints.Count > 0)
             {
@@ -29,6 +33,15 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
 
         public override void Update()
         {
+            // Update scan offset for visual rotation
+            float offset = _controller.ScanAngleRange * Mathf.Sin((Time.time + _controller.PatrolScanTimeOffset) * _controller.ScanSpeed);
+            _controller.CurrentPatrolScanOffset = offset;
+            
+            // Apply scan rotation to the model root
+            // The base rotation is the agent's current forward direction
+            _controller.ModelRoot.rotation = Quaternion.Slerp(_controller.ModelRoot.rotation, _controller.transform.rotation * Quaternion.Euler(0, offset, 0), Time.deltaTime * 5f);
+
+
             // Waypoint cycling
             if (_waypoints != null && _waypoints.Count > 0)
             {
@@ -40,6 +53,12 @@ namespace _Project.Code.Gameplay.Enemies.AI.States
                         _controller.Agent.SetDestination(targetWaypoint.position);
                 }
             }
+        }
+
+        public override void Exit()
+        {
+            _controller.Agent.updateRotation = true; // Give control of rotation back to the agent
+            _controller.CurrentPatrolScanOffset = 0; // Reset offset on exit
         }
     }
 }

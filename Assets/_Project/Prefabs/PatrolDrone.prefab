@@ -316,7 +316,7 @@ MonoBehaviour:
   viewAngle: 90
   playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -329,6 +329,8 @@ MonoBehaviour:
   retreatPoint: {fileID: 0}
   retreatHealthPercentage: 0.75
   modelRoot: {fileID: 3408367036832406743}
+  scanAngleRange: 45
+  scanSpeed: 2
 --- !u!135 &56505619167177008
 SphereCollider:
   m_ObjectHideFlags: 0

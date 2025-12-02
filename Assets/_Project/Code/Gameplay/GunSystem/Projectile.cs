@@ -7,9 +7,14 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
     {
         [SerializeField] private float speed = 30f;
         [SerializeField] private float lifeTime = 3f;
-        [SerializeField] private GameObject impactEffectPrefab;
+        
+        [Header("Impact Effects")]
+        [SerializeField] private GameObject defaultImpactPrefab;
+        [SerializeField] private GameObject playerImpactPrefab;
+        // Optionally, could add environmentalImpactPrefab, etc.
 
         public float Damage { get; set; }
+        public LayerMask PlayerLayer { get; set; } // Added PlayerLayer
 
         private bool _isVisualOnly = false;
 
@@ -52,12 +57,13 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             transform.position = target;
             
             // Spawn impact, but don't deal damage
-            if (impactEffectPrefab != null)
+            // For tracers, we use the default impact visual for now
+            if (defaultImpactPrefab != null)
             {
                 // Note: For a simple tracer, we don't have a real collision normal.
                 // We'll spawn the effect facing away from the impact point.
                 Quaternion rotation = Quaternion.LookRotation(transform.position - startPosition);
-                var impactEffectInstance = Instantiate(impactEffectPrefab, transform.position, rotation);
+                var impactEffectInstance = Instantiate(defaultImpactPrefab, transform.position, rotation);
                 Destroy(impactEffectInstance, 2f); // Simplified lifetime management
             }
 
@@ -69,14 +75,26 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             // If this is just a visual tracer, do not process collisions or damage.
             if (_isVisualOnly) return;
             
-            if (collision.gameObject.CompareTag("Player")) return;
+            GameObject impactPrefabToUse = defaultImpactPrefab;
+            Quaternion impactRotation = Quaternion.LookRotation(collision.contacts[0].normal);
+            Transform parentTransform = collision.transform;
+
+            // Conditional impact effect based on what was hit (using LayerMask for performance)
+            if (((1 << collision.gameObject.layer) & PlayerLayer) != 0)
+            {
+                impactPrefabToUse = playerImpactPrefab;
+                // For blood splatter, might not want to align with normal directly
+                impactRotation = Quaternion.identity; // Or align to camera/fixed up
+            }
+            // else if (collision.gameObject.CompareTag("Environmental")) { impactPrefabToUse = environmentalImpactPrefab; }
+            // else { impactPrefabToUse = defaultImpactPrefab; }
+
 
             // Instantiate the impact effect at the point of impact and align it with the surface normal
-            if (impactEffectPrefab != null)
+            if (impactPrefabToUse != null)
             {
                 ContactPoint contact = collision.contacts[0];
-                Quaternion rotation = Quaternion.LookRotation(contact.normal);
-                var impactEffectInstance = Instantiate(impactEffectPrefab, contact.point, rotation, collision.transform);
+                var impactEffectInstance = Instantiate(impactPrefabToUse, contact.point, impactRotation, parentTransform);
 
                 if (impactEffectInstance.TryGetComponent<ParticleSystem>(out var particleSystem))
                 {

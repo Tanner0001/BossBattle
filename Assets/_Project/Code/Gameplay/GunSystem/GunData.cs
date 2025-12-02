@@ -33,5 +33,8 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
         public float RecoilAmount = 0.1f;
         public float RecoilSpeed = 10f;
         public float RecoilRecoverySpeed = 5f;
+
+        [Header("Layer Masks")]
+        public LayerMask PlayerLayer;
     }
 }

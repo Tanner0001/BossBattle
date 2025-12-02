@@ -16,6 +16,7 @@ namespace _Project.Code.Gameplay.Enemies.AI
         private Hitbox _hitbox;
         private FiniteStateMachine<BaseState> _stateMachine;
         private float _searchTimer;
+        private float _patrolScanTimeOffset;
 
         private float _defaultStoppingDistance;
 
@@ -58,6 +59,14 @@ namespace _Project.Code.Gameplay.Enemies.AI
         public float DefaultStoppingDistance => _defaultStoppingDistance;
         public float CombatStoppingDistance => combatStoppingDistance;
         public Transform ModelRoot => modelRoot;
+
+        [Header("Patrol Scan Config")]
+        [SerializeField] private float scanAngleRange = 45f;
+        [SerializeField] private float scanSpeed = 1f;
+        public float CurrentPatrolScanOffset { get; set; }
+        public float PatrolScanTimeOffset { get; set; }
+        public float ScanAngleRange => scanAngleRange;
+        public float ScanSpeed => scanSpeed;
 
 
         private void Awake()

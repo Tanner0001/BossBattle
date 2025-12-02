@@ -27,3 +27,6 @@ MonoBehaviour:
   RecoilAmount: 0.1
   RecoilSpeed: 10
   RecoilRecoverySpeed: 5
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 8
