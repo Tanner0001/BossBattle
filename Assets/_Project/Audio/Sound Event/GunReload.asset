@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunReload
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 2276e67b851d55d418c68eacdae06471, type: 3}
-  Volume: 1
+  Volume: 0.3
   Pitch: 1
   SpatialBlend: 1
   Loop: 0

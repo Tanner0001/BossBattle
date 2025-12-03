@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunShot
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: a40458d509c856142ac37165b8ddca62, type: 3}
-  Volume: 1
+  Volume: 0.3
   Pitch: 1
   SpatialBlend: 1
   Loop: 0

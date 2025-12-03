@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8408390767754077682}
   - component: {fileID: 2211106250088634306}
   - component: {fileID: 1530089141436418263}
+  - component: {fileID: 457482351171180485}
   m_Layer: 0
   m_Name: Prison_DoorTop
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &457482351171180485
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704116418013343916}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0031602038, y: 0.07737062, z: 0.009882094}
+  m_Center: {x: 0.0022050785, y: -0.041240793, z: 0.042350978}
 --- !u!1 &3418848900777464578
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +119,7 @@ GameObject:
   - component: {fileID: 1381570843921854090}
   - component: {fileID: 7580896293224617060}
   - component: {fileID: 2161055043357047511}
+  - component: {fileID: 8642476021445178753}
   m_Layer: 0
   m_Name: Prison_DoorBottom
   m_TagString: Untagged
@@ -172,6 +195,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8642476021445178753
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418848900777464578}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0016318359, y: 0.07780087, z: 0.019638423}
+  m_Center: {x: 0.0023159178, y: -0.04107999, z: 0.009292303}
 --- !u!1 &7998867961427840829
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +262,7 @@ GameObject:
   - component: {fileID: 7758929047229517232}
   - component: {fileID: 5979511196375950996}
   - component: {fileID: 1684274958476938928}
+  - component: {fileID: 7832024987781983933}
   m_Layer: 0
   m_Name: Prison_DoorOutSide
   m_TagString: Untagged
@@ -293,6 +338,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7832024987781983933
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8151593860973599632}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1295929155855529060, guid: 20279f019daddbb4d8d149e2c488f6f1, type: 3}
 --- !u!1 &8660151492986977075
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +371,7 @@ GameObject:
   - component: {fileID: 3594666635135818987}
   - component: {fileID: 7050465566170685752}
   - component: {fileID: 8353483720183975165}
+  - component: {fileID: 3252081197360591920}
   m_Layer: 0
   m_Name: Prison_DoorMiddle
   m_TagString: Untagged
@@ -379,3 +447,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3252081197360591920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660151492986977075}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0026447317, y: 0.07780087, z: 0.018303702}
+  m_Center: {x: 0.0023329172, y: -0.041079998, z: 0.028262774}

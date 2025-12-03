@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunEmpty
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: abd0c44a8a65e4043a00646a0ca483fb, type: 3}
-  Volume: 1
+  Volume: 0.3
   Pitch: 1
   SpatialBlend: 1
   Loop: 0

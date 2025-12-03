@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3842902477961710301}
   - component: {fileID: 1782776678094402540}
   - component: {fileID: 7184721191824837074}
+  - component: {fileID: 7743056256271708227}
   m_Layer: 0
   m_Name: Prison_WallWDoor
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7743056256271708227
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574190204047431079}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.080000006, y: 0.004405793, z: 0.049999986}
+  m_Center: {x: 0.039999995, y: 0.0013058068, z: 0.024999993}
 --- !u!1 &6786168986045410826
 GameObject:
   m_ObjectHideFlags: 0
