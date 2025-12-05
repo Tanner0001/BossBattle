@@ -6,14 +6,14 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DirtPath
-  m_DiffuseTexture: {fileID: 2800000, guid: 7b2bf045fc7396843ae01dd6aaebc533, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: e811651260b82b04db62377d91ec9ff0, type: 3}
+  m_Name: RockyTerrain
+  m_DiffuseTexture: {fileID: 2800000, guid: 4c22fcf9a2bb96d4bbd1f6a1395aa534, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 9b76a9b8aad955142aa09feb4a57e8ad, type: 3}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 5, y: 5}
-  m_TileOffset: {x: 1, y: 1}
+  m_TileSize: {x: 3, y: 3}
+  m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
-  m_Metallic: 0.115
+  m_Metallic: 0
   m_Smoothness: 0
   m_NormalScale: 1
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
