@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266ae8a99396c8143bd82c8d8de9318d, type: 3}
   m_Name: WardenData
   m_EditorClassIdentifier: 
-  MaxHealth: 1000
+  MaxHealth: 500
   MovementSpeed: 5
   TurnSpeed: 120
-  Phase1HealthThreshold: 500
+  Phase1HealthThreshold: 250
   AttackRate: 1
   AttackDamage: 10
   AttackRange: 20
   DronesToSpawn: 5
-  Phase2HealthThreshold: 250
+  Phase2HealthThreshold: 150
   WeakSpotMultiplier: 2
   Phase3NewAbilityCooldown: 6
   Phase3MinionsToSpawn: 3

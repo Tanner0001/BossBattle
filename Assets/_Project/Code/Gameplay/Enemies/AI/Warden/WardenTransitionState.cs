@@ -6,6 +6,7 @@ namespace BossBattle.Gameplay.Enemies.AI
     public class WardenTransitionState : WardenBaseState
     {
         private bool _hasReachedRetreatPoint;
+        private float _originalStoppingDistance; // Field to store original stopping distance
 
         public override void EnterState(WardenBossController warden)
         {
@@ -13,7 +14,10 @@ namespace BossBattle.Gameplay.Enemies.AI
             _hasReachedRetreatPoint = false;
             if (warden.Agent != null && warden.RetreatPoint != null)
             {
+                _originalStoppingDistance = warden.Agent.stoppingDistance; // Save original stopping distance
+                warden.Agent.stoppingDistance = 0.1f; // Set a small stopping distance for precise movement
                 warden.Agent.SetDestination(warden.RetreatPoint.position);
+                warden.Agent.isStopped = false; // Ensure agent is not stopped
             }
             else
             {
@@ -39,6 +43,7 @@ namespace BossBattle.Gameplay.Enemies.AI
                 if (!warden.Agent.pathPending && warden.Agent.remainingDistance < 0.5f && warden.Agent.velocity.sqrMagnitude < 0.1f)
                 {
                     Debug.Log("Warden reached Phase 2 start point, transitioning to Phase 2.");
+                    warden.Agent.stoppingDistance = _originalStoppingDistance; // Restore original stopping distance
                     warden.TransitionToState(warden.Phase2State);
                 }
             }

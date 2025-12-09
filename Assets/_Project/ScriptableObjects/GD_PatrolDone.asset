@@ -22,7 +22,7 @@ MonoBehaviour:
   HitscanRange: 100
   HitscanLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 59
   HitscanVisualPrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
   RecoilAmount: 0.1
   RecoilSpeed: 10

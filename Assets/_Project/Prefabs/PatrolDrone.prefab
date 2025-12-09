@@ -319,7 +319,7 @@ MonoBehaviour:
     m_Bits: 8
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   playerTransform: {fileID: 3408367036832406743}
   isWarden: 0
   enableDebugLogging: 1

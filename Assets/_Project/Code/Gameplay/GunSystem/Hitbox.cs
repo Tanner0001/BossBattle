@@ -1,6 +1,7 @@
 using UnityEngine;
 using _Project.Code.Core.Events;
 using System.Collections; // Needed for Coroutines
+using System;
 
 namespace _Project.Code.Gameplay.Combat
 {
@@ -22,17 +23,31 @@ namespace _Project.Code.Gameplay.Combat
         public float MaxShield => maxShield;
         public bool HasShield => hasShield; // Public getter for hasShield
 
+        public event Action OnHealthChanged; // Event to notify subscribers of health/shield changes
+
         private Color _originalColor;
         private float _lastDamageTime; // To track when damage was last taken for shield regen delay
 
-        private void Start()
+        // New method to initialize max health programmatically
+        public void Initialize(float newMaxHealth)
         {
+            maxHealth = newMaxHealth;
             CurrentHealth = maxHealth;
             if (hasShield)
             {
                 CurrentShield = maxShield;
             }
             _lastDamageTime = -shieldRegenDelay; // Initialize so shield starts regenerating immediately if no damage
+            OnHealthChanged?.Invoke(); // Notify after initialization
+        }
+
+        private void Start()
+        {
+            // If not initialized externally, initialize with inspector values
+            if (CurrentHealth == 0 && maxHealth > 0) 
+            {
+                Initialize(maxHealth);
+            }
             
             if (targetRenderer != null)
                 _originalColor = targetRenderer.material.color;
@@ -44,6 +59,7 @@ namespace _Project.Code.Gameplay.Combat
             {
                 CurrentShield += shieldRegenRate * Time.deltaTime;
                 CurrentShield = Mathf.Min(CurrentShield, maxShield); // Cap shield at max
+                OnHealthChanged?.Invoke();
             }
         }
 
@@ -68,6 +84,7 @@ namespace _Project.Code.Gameplay.Combat
                 CurrentHealth -= amount;
                 FlashHit();
             }
+            OnHealthChanged?.Invoke();
 
             if (CurrentHealth <= 0)
                 Die();
@@ -78,6 +95,7 @@ namespace _Project.Code.Gameplay.Combat
             if (CurrentHealth < maxHealth)
             {
                 CurrentHealth = Mathf.Min(CurrentHealth + amount, maxHealth);
+                OnHealthChanged?.Invoke();
             }
         }
 
@@ -86,6 +104,7 @@ namespace _Project.Code.Gameplay.Combat
             if (hasShield && CurrentShield < maxShield)
             {
                 CurrentShield = Mathf.Min(CurrentShield + amount, maxShield);
+                OnHealthChanged?.Invoke();
             }
         }
 

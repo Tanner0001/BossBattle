@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
 using BossBattle.Gameplay.Enemies.Data;
+using _Project.Code.Gameplay.Combat; // Added for Hitbox
+using System; // Added for Action event
 
 namespace BossBattle.Gameplay.Enemies.AI
 {
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Hitbox))]
     public class WardenBossController : MonoBehaviour
     {
         [Header("Data")]
@@ -19,8 +22,10 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         [Header("Warden Properties")]
         public Transform Player;
-        public float CurrentHealth;
+        public float CurrentHealth => _hitbox != null ? _hitbox.CurrentHealth : 0f;
         public NavMeshAgent Agent;
+
+        public event Action OnHealthChanged; // Event for UI and other systems to subscribe to
 
         [Header("Phase 1 Properties")]
         public Transform Phase1StartPoint;
@@ -51,9 +56,15 @@ namespace BossBattle.Gameplay.Enemies.AI
         [Tooltip("The transform representing the visual root of the warden's model. Used for rotation and view origin. If not set, defaults to the main transform.")]
         [SerializeField] private Transform modelRoot;
 
+        private Hitbox _hitbox; // Reference to the attached Hitbox component
+
         void Awake()
         {
             Agent = GetComponent<NavMeshAgent>();
+            _hitbox = GetComponent<Hitbox>(); // Get the Hitbox component
+            _hitbox.Initialize(WardenData.MaxHealth); // Initialize Hitbox with WardenData's MaxHealth
+            _hitbox.OnHealthChanged += () => OnHealthChanged?.Invoke(); // Subscribe to hitbox health changes
+
             if (modelRoot == null)
                 modelRoot = transform;
         }
@@ -62,8 +73,6 @@ namespace BossBattle.Gameplay.Enemies.AI
         {
             // Set player transform
             Player = GameObject.FindGameObjectWithTag("Player").transform;
-
-            CurrentHealth = WardenData.MaxHealth;
             Agent.speed = WardenData.MovementSpeed;
             Agent.angularSpeed = WardenData.TurnSpeed;
             Agent.stoppingDistance = CombatStoppingDistance; // Set initial stopping distance
