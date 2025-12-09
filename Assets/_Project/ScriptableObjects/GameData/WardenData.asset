@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 266ae8a99396c8143bd82c8d8de9318d, type: 3}
+  m_Name: WardenData
+  m_EditorClassIdentifier: 
+  MaxHealth: 1000
+  MovementSpeed: 5
+  TurnSpeed: 120
+  Phase1HealthThreshold: 500
+  AttackRate: 1
+  AttackDamage: 10
+  AttackRange: 20
+  DronesToSpawn: 5
+  Phase2HealthThreshold: 250
+  AoECooldown: 8
+  AoEDamage: 30
+  AoERadius: 10
+  WeakSpotMultiplier: 2
+  Phase3NewAbilityCooldown: 6
+  Phase3MinionsToSpawn: 3
+  Phase3HealthThreshold: 50
