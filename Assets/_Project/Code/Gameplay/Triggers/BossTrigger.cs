@@ -1,4 +1,5 @@
 using UnityEngine;
+using BossBattle.Gameplay.Enemies.AI; // Added this line
 
 namespace BossBattle.Gameplay.Triggers
 {
@@ -12,7 +13,16 @@ namespace BossBattle.Gameplay.Triggers
             if (other.CompareTag("Player") && !HasBeenTriggered)
             {
                 HasBeenTriggered = true;
-                WardenBoss.SetActive(true);
+                WardenBoss.SetActive(true); // Still activate the GameObject first
+                WardenBossController wardenController = WardenBoss.GetComponent<WardenBossController>();
+                if (wardenController != null)
+                {
+                    wardenController.StartCombat();
+                }
+                else
+                {
+                    Debug.LogError("WardenBossController not found on WardenBoss GameObject.");
+                }
                 Debug.Log("Boss fight triggered!");
             }
         }

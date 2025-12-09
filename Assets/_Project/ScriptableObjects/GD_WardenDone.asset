@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunName: PatrolDone
   FireMode: 1
-  Damage: 25
+  Damage: 15
   MaxAmmo: 20
-  FireRate: 0.2
+  FireRate: 0.6
   ReloadTime: 1.5
   ProjectilePrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
   HitscanRange: 100
   HitscanLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 4294967295
   HitscanVisualPrefab: {fileID: 2647522053195157486, guid: 35418a97b34e4374e8c6039743b25955, type: 3}
   RecoilAmount: 0.1
   RecoilSpeed: 10

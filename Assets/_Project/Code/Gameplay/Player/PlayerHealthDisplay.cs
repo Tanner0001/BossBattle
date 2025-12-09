@@ -67,13 +67,29 @@ namespace _Project.Code.Gameplay.Player
         {
             if (healthText != null)
             {
-                healthText.text = $"HP: {Mathf.CeilToInt(playerHitbox.CurrentHealth)} / {Mathf.CeilToInt(playerHitbox.MaxHealth)}";
+                string healthString = $"HP: {Mathf.CeilToInt(playerHitbox.CurrentHealth)} / {Mathf.CeilToInt(playerHitbox.MaxHealth)}";
+                if (playerHitbox.HasShield)
+                {
+                    healthString = $"SH: {Mathf.CeilToInt(playerHitbox.CurrentShield)} / {Mathf.CeilToInt(playerHitbox.MaxShield)}\n" + healthString;
+                }
+                healthText.text = healthString;
             }
         }
 
         private void UpdateBloodOverlay()
         {
-            if (bloodOverlayImage == null) return;
+            if (bloodOverlayImage == null || playerHitbox == null) return;
+
+            float currentEffectiveHealth = playerHitbox.HasShield ? playerHitbox.CurrentShield : playerHitbox.CurrentHealth;
+            float maxEffectiveHealth = playerHitbox.HasShield ? playerHitbox.MaxShield : playerHitbox.MaxHealth;
+
+            // If there's a shield, blood overlay only appears when shield is depleted and health is low
+            if (playerHitbox.HasShield && playerHitbox.CurrentShield > 0)
+            {
+                _bloodColor.a = Mathf.Lerp(_bloodColor.a, 0f, Time.deltaTime * bloodFadeSpeed); // Fade out blood if shield is up
+                bloodOverlayImage.color = _bloodColor;
+                return;
+            }
 
             float currentHealthPercentage = playerHitbox.CurrentHealth / playerHitbox.MaxHealth;
             float targetAlpha = 0f;

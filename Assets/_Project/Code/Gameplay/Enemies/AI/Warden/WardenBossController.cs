@@ -68,8 +68,7 @@ namespace BossBattle.Gameplay.Enemies.AI
             Agent.angularSpeed = WardenData.TurnSpeed;
             Agent.stoppingDistance = CombatStoppingDistance; // Set initial stopping distance
 
-            // Initial state
-            TransitionToState(Phase1State);
+            // Do NOT transition to state here. BossTrigger will call StartCombat().
         }
 
         void Update()
@@ -86,24 +85,12 @@ namespace BossBattle.Gameplay.Enemies.AI
             _currentState.EnterState(this);
         }
 
-        public void TakeDamage(float amount)
+        public void StartCombat()
         {
-            CurrentHealth -= amount;
-            if (CurrentHealth <= WardenData.Phase1HealthThreshold && _currentState == Phase1State)
-            {
-                TransitionToState(TransitionState);
-            }
-            else if (CurrentHealth <= WardenData.Phase2HealthThreshold && _currentState == Phase2State)
-            {
-                TransitionToState(Phase3State);
-            }
-
-            if (CurrentHealth <= 0)
-            {
-                // Handle death
-                Destroy(gameObject);
-            }
+            TransitionToState(Phase1State);
+            Agent.isStopped = false; // Allow movement when combat starts
         }
+
 
         public Transform ModelRoot => modelRoot; // Public property for ModelRoot
 

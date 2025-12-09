@@ -101,6 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   targetRenderer: {fileID: 0}
+  isPlayer: 1
+  hasShield: 0
+  maxShield: 100
+  shieldRegenRate: 10
+  shieldRegenDelay: 3
 --- !u!1 &4581804924480853540
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,9 +177,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4257116819842282174}
   - {fileID: 728045123553234792}
   - {fileID: 4929071734019992663}
-  - {fileID: 4257116819842282174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &6487567182319453292

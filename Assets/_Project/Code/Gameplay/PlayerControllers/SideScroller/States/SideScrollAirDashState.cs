@@ -8,7 +8,6 @@ namespace _Project.Code.Gameplay.PlayerControllers.SideScroller.States
         private float _dashStartTime;
         private Vector3 _dashDirection;
         private float _dashSpeed;
-        private bool _dashCompleted;
 
         public SideScrollAirDashState(SideScrollerController controller) : base(controller)
         {
@@ -18,7 +17,6 @@ namespace _Project.Code.Gameplay.PlayerControllers.SideScroller.States
         {
             base.Enter();
             _dashStartTime = Time.time;
-            _dashCompleted = false;
 
             // Determine dash direction based on input or facing direction
             if (Mathf.Abs(_controller.MoveInput.x) > 0.1f)
@@ -51,8 +49,6 @@ namespace _Project.Code.Gameplay.PlayerControllers.SideScroller.States
             // Check if dash duration completed
             if (dashElapsed >= _controller.MovementProfile.AirDashDuration)
             {
-                _dashCompleted = true;
-
                 // Check if grounded during or after dash
                 if (_controller.IsGrounded)
                 {

@@ -21,9 +21,6 @@ MonoBehaviour:
   AttackRange: 20
   DronesToSpawn: 5
   Phase2HealthThreshold: 250
-  AoECooldown: 8
-  AoEDamage: 30
-  AoERadius: 10
   WeakSpotMultiplier: 2
   Phase3NewAbilityCooldown: 6
   Phase3MinionsToSpawn: 3
