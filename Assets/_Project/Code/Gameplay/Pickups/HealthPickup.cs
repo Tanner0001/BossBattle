@@ -9,7 +9,9 @@ namespace _Project.Code.Gameplay.Pickups
 
         public void Collect(GameObject collector)
         {
-            if (collector.TryGetComponent<Hitbox>(out Hitbox hitbox))
+            // Debug.Log("HealthPickup.Collect() method ENTERED!"); // Removed temporary log
+            Hitbox hitbox = collector.GetComponentInChildren<Hitbox>(); // Search in children too
+            if (hitbox != null)
             {
                 // Only heal if not at max health
                 if (hitbox.CurrentHealth < hitbox.MaxHealth)
@@ -24,6 +26,11 @@ namespace _Project.Code.Gameplay.Pickups
                 }
                 Destroy(gameObject); // Destroy pickup after collection regardless of healing amount
             } // Corrected closing brace
+            else
+            {
+                // Debug.Log("Doesnt have a collector"); // User's custom log, removed
+                Debug.LogWarning($"HealthPickup: Collector {collector.name} (or its child) does NOT have a Hitbox component. Cannot heal.", this);
+            }
         }
     }
 }

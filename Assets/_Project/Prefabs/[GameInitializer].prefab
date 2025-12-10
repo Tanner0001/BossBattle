@@ -52,5 +52,6 @@ MonoBehaviour:
   - {fileID: 3360870923297266034, guid: 24f67f3787c4ae244a99716ab0732a10, type: 3}
   - {fileID: 1847543658712746384, guid: 75d918a24c645ce478a403f4370b937f, type: 3}
   - {fileID: 1127461401152717827, guid: 20c4e7c819914e44280541821c0d053b, type: 3}
+  - {fileID: 8136768868454930442, guid: 15e5978d06fd0414eac46e3e850f2f13, type: 3}
   _loadSceneOnStart: 1
   _sceneToLoad: '[Main_Menu_Example]'

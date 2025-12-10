@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4326592873505530216}
   - component: {fileID: 8607961507371452066}
   - component: {fileID: 3051421259868878005}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 7095184619915088566}
   - component: {fileID: 1270123836431012213}
   - component: {fileID: 58700055454873325}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 4134438808259688989}
   - component: {fileID: 4169017829299692427}
   - component: {fileID: -1041417360999677222}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthPickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412ac516f8695e4b89986a55217457e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmount: 25
+  healthAmount: 20
 --- !u!65 &4169017829299692427
 BoxCollider:
   m_ObjectHideFlags: 0
