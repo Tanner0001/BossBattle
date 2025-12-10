@@ -184,6 +184,8 @@ namespace _Project.Code.Gameplay.CameraSystems
             {
                 transform.localRotation = targetPitch;
             }
+            
+            EventBus.Instance.Publish(new CameraPitchChangedEvent(_currentPitch));
         }
 
         private void OnDestroy()

@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 1eb14a62929b73e4d8011ac00721886c, type: 2}
+  isPlayerGun: 0
   muzzlePoint: {fileID: 1040568500878751906}
 --- !u!114 &215945006106146225
 MonoBehaviour:
@@ -298,8 +299,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dab60631c276a54d83aab4a6d76341e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 12
   targetRenderer: {fileID: 0}
+  isPlayer: 0
+  hasShield: 0
+  maxShield: 100
+  shieldRegenRate: 10
+  shieldRegenDelay: 3
 --- !u!114 &4825962105686473920
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -92,7 +92,7 @@ Transform:
   m_GameObject: {fileID: 4114053103537821298}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.179, y: 0, z: 0.285}
+  m_LocalPosition: {x: 0.003, y: -0.121, z: 0.258}
   m_LocalScale: {x: 0.13480029, y: 0.36524135, z: 0.13480029}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: eb91df4559a99c748ad57aa718be77f2, type: 2}
+  isPlayerGun: 0
   muzzlePoint: {fileID: 7095350450717536064}
 --- !u!1 &4804049674924303730
 GameObject:
@@ -374,6 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: eb91df4559a99c748ad57aa718be77f2, type: 2}
+  isPlayerGun: 0
   muzzlePoint: {fileID: 2563727101032351328}
 --- !u!1 &6405072264668731847
 GameObject:
@@ -644,7 +646,7 @@ Transform:
   m_GameObject: {fileID: 8819043815642999211}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.159, y: 0, z: 0.276}
+  m_LocalPosition: {x: 0.008, y: 0.081, z: 0.276}
   m_LocalScale: {x: 0.13480029, y: 0.36524135, z: 0.13480029}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -753,6 +755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: eb91df4559a99c748ad57aa718be77f2, type: 2}
+  isPlayerGun: 0
   muzzlePoint: {fileID: 2077046664336027725}
 --- !u!1 &8963646748375688781
 GameObject:

@@ -9,6 +9,7 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
     {
         [Header("Data")]
         [SerializeField] private GunData gunData;
+        [SerializeField] private bool isPlayerGun = false; // Added to identify if this is the player's gun
 
         [Header("References")]
         [SerializeField] private Transform muzzlePoint;
@@ -80,7 +81,28 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
                 return;
             }
 
-            GameObject projectileInstance = Instantiate(gunData.ProjectilePrefab, muzzlePoint.position, muzzlePoint.rotation);
+            Vector3 direction;
+            if (isPlayerGun && Camera.main != null)
+            {
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+                RaycastHit cameraRayHit;
+                Vector3 targetPoint;
+                if (Physics.Raycast(ray, out cameraRayHit, 1000f, gunData.HitscanLayers)) // Using HitscanLayers for player aiming
+                {
+                    targetPoint = cameraRayHit.point;
+                }
+                else
+                {
+                    targetPoint = ray.origin + ray.direction * 1000f; // Far point if nothing hit
+                }
+                direction = (targetPoint - muzzlePoint.position).normalized;
+            }
+            else
+            {
+                direction = muzzlePoint.forward;
+            }
+            
+            GameObject projectileInstance = Instantiate(gunData.ProjectilePrefab, muzzlePoint.position, Quaternion.LookRotation(direction));
             if (projectileInstance.TryGetComponent<Projectile>(out var projectile))
             {
                 projectile.Damage = gunData.Damage;
@@ -97,7 +119,26 @@ namespace _Project.Code.Gameplay.Combat.GunSystem
             }
 
             Vector3 startPoint = muzzlePoint.position;
-            Vector3 direction = muzzlePoint.forward;
+            Vector3 direction;
+            if (isPlayerGun && Camera.main != null)
+            {
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+                RaycastHit cameraRayHit;
+                Vector3 targetPoint;
+                if (Physics.Raycast(ray, out cameraRayHit, 1000f, gunData.HitscanLayers))
+                {
+                    targetPoint = cameraRayHit.point;
+                }
+                else
+                {
+                    targetPoint = ray.origin + ray.direction * 1000f;
+                }
+                direction = (targetPoint - muzzlePoint.position).normalized;
+            }
+            else
+            {
+                direction = muzzlePoint.forward;
+            }
             Vector3 endPoint;
 
             if (Physics.Raycast(startPoint, direction, out var hit, gunData.HitscanRange, gunData.HitscanLayers))
