@@ -2323,8 +2323,8 @@ Transform:
   m_GameObject: {fileID: 98953493}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.41721097, z: -0, w: 0.9088097}
-  m_LocalPosition: {x: 44.55, y: 7.87, z: 83.64}
-  m_LocalScale: {x: 2.2367678, y: 2.2367678, z: 2.2367678}
+  m_LocalPosition: {x: 44.55, y: 7.27, z: 83.64}
+  m_LocalScale: {x: 2.513456, y: 2.513456, z: 2.513456}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -41755,6 +41755,10 @@ PrefabInstance:
     - target: {fileID: 6405072264668731847, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
       propertyPath: m_Name
       value: Warden
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405072264668731847, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8301157973079827895, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
       propertyPath: healthText
