@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167fb634ded74d945a5fa47acd4bfebd, type: 3}
   m_Name: ThirdPersonMovementProfile
   m_EditorClassIdentifier: 
-  <WalkSpeed>k__BackingField: 3
+  <WalkSpeed>k__BackingField: 4
   <RunSpeed>k__BackingField: 6
-  <SprintMultiplier>k__BackingField: 1.5
+  <SprintMultiplier>k__BackingField: 1
   <Acceleration>k__BackingField: 10
   <Deceleration>k__BackingField: 15
   <AirAcceleration>k__BackingField: 5
@@ -33,6 +33,13 @@ MonoBehaviour:
   <VariableJumpHeight>k__BackingField: 1
   <MinJumpMultiplier>k__BackingField: 0.5
   <AirControlMultiplier>k__BackingField: 0.7
-  <TurnSmoothTime>k__BackingField: 0.1
   <BackwardSpeedMultiplier>k__BackingField: 0.75
-  <StrafeSpeedMultiplier>k__BackingField: 0.9
+  <TargetSearchRadius>k__BackingField: 15
+  <TargetAngle>k__BackingField: 120
+  <TargetLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  <StrafeWalkSpeed>k__BackingField: 2.5
+  <StrafeSprintSpeed>k__BackingField: 6
+  <StrafeAirSpeed>k__BackingField: 2
+  <LockOnRotationSpeed>k__BackingField: 720

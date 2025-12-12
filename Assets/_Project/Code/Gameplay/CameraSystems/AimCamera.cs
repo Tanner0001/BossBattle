@@ -174,17 +174,6 @@ namespace _Project.Code.Gameplay.CameraSystems
                 }
             }
 
-            var targetPitch = Quaternion.Euler(_currentPitch, 0, 0);
-            if (_profile.RotationDamping > 0.01f)
-            {
-                transform.localRotation = Quaternion.Slerp(transform.localRotation, targetPitch,
-                    (1f - _profile.RotationDamping) * 10f * Time.deltaTime);
-            }
-            else
-            {
-                transform.localRotation = targetPitch;
-            }
-            
             EventBus.Instance.Publish(new CameraPitchChangedEvent(_currentPitch));
         }
 
