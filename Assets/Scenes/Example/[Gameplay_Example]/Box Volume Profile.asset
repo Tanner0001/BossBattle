@@ -102,16 +102,16 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 5
   contrast:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 10.9
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
   hueShift:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -2
   saturation:
     m_OverrideState: 1
     m_Value: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d08ce26990eb1a4a9177b860541e702, type: 3}
   m_Name: Exposure
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 0
@@ -290,10 +290,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.59
+    m_Value: 1
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.71
+    m_Value: 0.544
   roundness:
     m_OverrideState: 1
     m_Value: 0.75
