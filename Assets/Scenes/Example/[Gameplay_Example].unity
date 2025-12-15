@@ -9930,6 +9930,9 @@ GameObject:
   m_Component:
   - component: {fileID: 515310184}
   - component: {fileID: 515310185}
+  - component: {fileID: 515310188}
+  - component: {fileID: 515310187}
+  - component: {fileID: 515310186}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9965,6 +9968,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoText: {fileID: 770601800}
+--- !u!114 &515310186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515310183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed90e2efa603e848bbd8a72ec19866e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &515310187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515310183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca54b62aa31943a4696563a0b0e83f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wardenHitbox: {fileID: 6503224435830395365}
+  phase2Threshold: 0.7
+  phase3Threshold: 0.3
+--- !u!114 &515310188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515310183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eeb0db20f11ec745bc115f11df54008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droneExplosionVFX: {fileID: 100006, guid: 4575df893a6e3f64a8283dee38413a34, type: 3}
+  wardenExplosionVFX: {fileID: 100008, guid: 1dbc518224e49f34095aab42fe05751a, type: 3}
+  droneExplosionSFX: {fileID: 8300000, guid: 8bea61ee9ddf8ed4f8f21caa2a9f94bb, type: 3}
+  wardenExplosionSFX: {fileID: 8300000, guid: 8bea61ee9ddf8ed4f8f21caa2a9f94bb, type: 3}
 --- !u!1001 &515413765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20873,6 +20919,7 @@ MonoBehaviour:
   m_Script: {fileID: 2059134375}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &1096915871
 Transform:
   m_ObjectHideFlags: 19
@@ -42042,10 +42089,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warden
       objectReference: {fileID: 0}
-    - target: {fileID: 6405072264668731847, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8301157973079827895, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
       propertyPath: healthText
       value: 
@@ -42055,6 +42098,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
+--- !u!114 &6503224435830395365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7901046673343640204, guid: a62a5172ba08c524a9bdd758b6573158, type: 3}
+  m_PrefabInstance: {fileID: 6503224435830395364}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545874591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dab60631c276a54d83aab4a6d76341e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &6557468203363370710
 MeshRenderer:
   m_ObjectHideFlags: 0

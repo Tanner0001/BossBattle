@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb312ac42efbac04d899c48508cfcdd7, type: 3}
   m_Name: GunShot
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: a40458d509c856142ac37165b8ddca62, type: 3}
-  Volume: 0.3
+  Clip: {fileID: 8300000, guid: d86c9fa379da19c40940e68b221678fe, type: 3}
+  Volume: 0.727
   Pitch: 1
   SpatialBlend: 1
   Loop: 0

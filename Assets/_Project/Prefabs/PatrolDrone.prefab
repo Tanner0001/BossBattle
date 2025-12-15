@@ -299,9 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dab60631c276a54d83aab4a6d76341e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 12
+  maxHealth: 8
   targetRenderer: {fileID: 0}
   isPlayer: 0
+  enemyType: 0
   hasShield: 0
   maxShield: 100
   shieldRegenRate: 10

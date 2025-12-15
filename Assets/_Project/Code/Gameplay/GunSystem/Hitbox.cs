@@ -10,6 +10,7 @@ namespace _Project.Code.Gameplay.Combat
         [SerializeField] private float maxHealth = 50f;
         [SerializeField] private Renderer targetRenderer;
         [SerializeField] private bool isPlayer = false; // Flag to identify player hitbox
+        [SerializeField] private EnemyType enemyType; // Type of enemy for event publishing
 
         [Header("Shield Properties")]
         [SerializeField] private bool hasShield = false;
@@ -136,8 +137,16 @@ namespace _Project.Code.Gameplay.Combat
             }
             else
             {
-                EventBus.Instance.Publish(new EnemyDestroyedEvent());
-                Destroy(gameObject);
+                // Broadcast death event with data for feedback systems.
+                EventBus.Instance.Publish(new EnemyDiedEvent { Type = this.enemyType, Position = transform.position });
+
+                if (enemyType == EnemyType.Warden)
+                {
+                    EventBus.Instance.Publish(new WardenDiedEvent());
+                }
+
+                // Disable or pool the object. Do not destroy immediately if effects need its position.
+                gameObject.SetActive(false);
             }
         }
     }

@@ -567,6 +567,7 @@ MonoBehaviour:
   maxHealth: 50
   targetRenderer: {fileID: 0}
   isPlayer: 0
+  enemyType: 1
   hasShield: 0
   maxShield: 100
   shieldRegenRate: 10
