@@ -5,6 +5,7 @@ using _Project.Code.Gameplay.Combat; // Added for Hitbox
 using System; // Added for Action event
 using _Project.Code.Core.Events; // Added for EventBus
 using _Project.Code.Gameplay.VFX; // Added for MaterialController
+using TMPro; // For the vulnerability text
 
 namespace BossBattle.Gameplay.Enemies.AI
 {
@@ -51,6 +52,8 @@ namespace BossBattle.Gameplay.Enemies.AI
         [Header("Phase 3 Properties")]
         public Transform Phase3StartPoint;
         public Transform WeakSpotTransform;
+        public Renderer WeakSpotRenderer;
+        public TextMeshProUGUI VulnerabilityTextElement;
 
         [Header("Sight Config")]
         public float viewRadius = 20f;

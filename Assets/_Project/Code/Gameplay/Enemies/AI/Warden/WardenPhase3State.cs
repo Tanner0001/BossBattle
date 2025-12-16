@@ -7,26 +7,28 @@ namespace BossBattle.Gameplay.Enemies.AI
         private float _newAbilityTimer;
         private bool _isWeakSpotExposed;
         private bool _hasReachedArenaStartPoint;
+        private float _vulnerabilityTimer;
 
         public override void EnterState(WardenBossController warden)
         {
             base.EnterState(warden); // Set enter time for grace periods
             Debug.Log("Warden Entering Phase 3: Critical Vulnerability & Escalated Threats");
 
-            // Ensure Warden is vulnerable
+            // Ensure Warden is not invulnerable
             warden.Hitbox.IsInvulnerable = false;
             warden.MaterialController?.ClearInvulnerableMaterial();
 
             // Initialize state
             _hasReachedArenaStartPoint = false;
-            
+            _newAbilityTimer = warden.WardenData.Phase3NewAbilityCooldown;
+
             // Activate Phase 3 visuals
             warden.SingleGun.SetActive(false);
             warden.LeftGun.SetActive(true);
             warden.RightGun.SetActive(true);
-            warden.WeakSpotTransform.gameObject.SetActive(true);
-            _isWeakSpotExposed = true;
-            _newAbilityTimer = warden.WardenData.Phase3NewAbilityCooldown;
+
+            // Start the vulnerability cycle
+            ExposeWeakSpot(warden);
 
             // Set destination to the Phase 3 start point
             if (warden.Phase3StartPoint != null)
@@ -63,7 +65,7 @@ namespace BossBattle.Gameplay.Enemies.AI
                 warden.Agent.isStopped = true;
                 return;
             }
-            
+
             warden.transform.LookAt(warden.Player);
 
             // Logic for new powerful ability
@@ -73,6 +75,9 @@ namespace BossBattle.Gameplay.Enemies.AI
                 PerformNewPowerfulAbility(warden);
                 _newAbilityTimer = warden.WardenData.Phase3NewAbilityCooldown;
             }
+            
+            // Handle weak spot vulnerability cycle
+            HandleVulnerabilityCycle(warden);
 
             // Aggressive movement for Phase 3: relentless pursuit
             if (CanSeePlayer(warden))
@@ -83,14 +88,62 @@ namespace BossBattle.Gameplay.Enemies.AI
             }
             else
             {
-                 warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
-                 warden.Agent.isStopped = false;
+                warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
+                warden.Agent.isStopped = false;
+            }
+        }
+
+        private void HandleVulnerabilityCycle(WardenBossController warden)
+        {
+            _vulnerabilityTimer -= Time.deltaTime;
+            if (_vulnerabilityTimer <= 0)
+            {
+                if (_isWeakSpotExposed)
+                {
+                    HideWeakSpot(warden);
+                }
+                else
+                {
+                    ExposeWeakSpot(warden);
+                }
+            }
+        }
+
+        private void ExposeWeakSpot(WardenBossController warden)
+        {
+            Debug.Log("Warden weak spot is now EXPOSED.");
+            _isWeakSpotExposed = true;
+            warden.WeakSpotTransform.gameObject.SetActive(true);
+            _vulnerabilityTimer = warden.WardenData.WeakSpotVulnerabilityDuration;
+
+            if (warden.WeakSpotRenderer != null && warden.WardenData.WeakSpotExposedMaterial != null)
+            {
+                warden.WeakSpotRenderer.material = warden.WardenData.WeakSpotExposedMaterial;
             }
 
-            // Placeholder for weak spot management
-            if (_isWeakSpotExposed)
+            if (warden.VulnerabilityTextElement != null)
             {
-                // Future logic...
+                warden.VulnerabilityTextElement.text = warden.WardenData.WeakSpotExposedText;
+                warden.VulnerabilityTextElement.gameObject.SetActive(true);
+            }
+        }
+
+        private void HideWeakSpot(WardenBossController warden)
+        {
+            Debug.Log("Warden weak spot is now PROTECTED.");
+            _isWeakSpotExposed = false;
+            // We can choose to disable the weakspot object entirely or just change its material
+            // For this implementation, we'll just change the material.
+            _vulnerabilityTimer = warden.WardenData.WeakSpotVulnerabilityCooldown;
+
+            if (warden.WeakSpotRenderer != null && warden.WardenData.WeakSpotProtectedMaterial != null)
+            {
+                warden.WeakSpotRenderer.material = warden.WardenData.WeakSpotProtectedMaterial;
+            }
+
+            if (warden.VulnerabilityTextElement != null)
+            {
+                warden.VulnerabilityTextElement.gameObject.SetActive(false);
             }
         }
 

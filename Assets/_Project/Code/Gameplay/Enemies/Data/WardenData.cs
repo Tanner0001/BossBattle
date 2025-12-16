@@ -29,5 +29,16 @@ namespace BossBattle.Gameplay.Enemies.Data
         public float Phase3NewAbilityCooldown = 6f;
         public int Phase3MinionsToSpawn = 3;
         public float Phase3HealthThreshold = 50f;
+
+        [Tooltip("Material to show when the weak spot is vulnerable.")]
+        public Material WeakSpotExposedMaterial;
+        [Tooltip("Material to show when the weak spot is protected.")]
+        public Material WeakSpotProtectedMaterial;
+        [Tooltip("Text to display when the weak spot is exposed.")]
+        public string WeakSpotExposedText = "WEAK POINT EXPOSED!";
+        [Tooltip("How long the weak spot remains vulnerable in seconds.")]
+        public float WeakSpotVulnerabilityDuration = 5f;
+        [Tooltip("Time between vulnerability windows in seconds.")]
+        public float WeakSpotVulnerabilityCooldown = 8f;
     }
 }

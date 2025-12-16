@@ -25,3 +25,8 @@ MonoBehaviour:
   Phase3NewAbilityCooldown: 6
   Phase3MinionsToSpawn: 3
   Phase3HealthThreshold: 50
+  WeakSpotExposedMaterial: {fileID: 2100000, guid: 9d61480f010da47498ab5ed6d98e97ed, type: 2}
+  WeakSpotProtectedMaterial: {fileID: 2100000, guid: 4eb448da531902841a0973356d56eb80, type: 2}
+  WeakSpotExposedText: WEAK POINT EXPOSED!
+  WeakSpotVulnerabilityDuration: 5
+  WeakSpotVulnerabilityCooldown: 8
