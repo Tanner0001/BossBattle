@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb312ac42efbac04d899c48508cfcdd7, type: 3}
-  m_Name: GunShot
+  m_Name: Explosion
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: d86c9fa379da19c40940e68b221678fe, type: 3}
+  Clip: {fileID: 8300000, guid: 8bea61ee9ddf8ed4f8f21caa2a9f94bb, type: 3}
   Volume: 1
-  Pitch: 1.16
+  Pitch: 1.36
   SpatialBlend: 1
   Loop: 0
   Cooldown: 0.1

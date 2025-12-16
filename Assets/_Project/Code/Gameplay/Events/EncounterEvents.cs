@@ -26,3 +26,6 @@ public struct PhaseChangedEvent : IEvent
 
 // Fired by EncounterManager.cs when the win condition is met.
 public struct GameWonEvent : IEvent { }
+
+// Fired by WardenTransitionState when the Warden reaches its retreat point.
+public struct WardenReachedRetreatPointEvent : IEvent { }

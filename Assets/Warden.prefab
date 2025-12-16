@@ -392,10 +392,11 @@ GameObject:
   - component: {fileID: 5579256255892254360}
   - component: {fileID: 4418818140921851752}
   - component: {fileID: 7901046673343640204}
-  - component: {fileID: 8301157973079827895}
+  - component: {fileID: -2215898555602433379}
+  - component: {fileID: -5795314837279703746}
   m_Layer: 0
   m_Name: Warden
-  m_TagString: Untagged
+  m_TagString: Warden
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,7 +502,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6405072264668731847}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -527,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WardenData: {fileID: 11400000, guid: 6352efc0f136fa34ab92adb93843e41c, type: 2}
+  nextPhaseToEnter: 0
   Player: {fileID: 0}
   Agent: {fileID: 5579256255892254360}
   Phase1StartPoint: {fileID: 0}
@@ -540,6 +542,8 @@ MonoBehaviour:
   Phase2StartPoint: {fileID: 0}
   LeftGun: {fileID: 4114053103537821298}
   RightGun: {fileID: 8819043815642999211}
+  Phase2StoppingDistance: 15
+  Phase2EngagementRange: 30
   Phase3StartPoint: {fileID: 0}
   WeakSpotTransform: {fileID: 521926998603656559}
   viewRadius: 30
@@ -572,7 +576,7 @@ MonoBehaviour:
   maxShield: 100
   shieldRegenRate: 10
   shieldRegenDelay: 3
---- !u!114 &8301157973079827895
+--- !u!114 &-2215898555602433379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -581,11 +585,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 6405072264668731847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f08db00662607f4f8127e9402c0cdee, type: 3}
+  m_Script: {fileID: 11500000, guid: d376f15287692664db63d7b4f5fc2c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wardenBossController: {fileID: 4418818140921851752}
-  healthText: {fileID: 0}
+  targetRenderer: {fileID: 5868237541669523853}
+  invulnerableMaterial: {fileID: 2100000, guid: 4eb448da531902841a0973356d56eb80, type: 2}
+--- !u!54 &-5795314837279703746
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6405072264668731847}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &7671929457104566596
 GameObject:
   m_ObjectHideFlags: 0

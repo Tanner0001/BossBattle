@@ -1,5 +1,5 @@
 using UnityEngine;
-using _Project.Code.Gameplay.Combat.GunSystem; // Add this using directive if not already present
+using _Project.Code.Gameplay.Combat.GunSystem;
 
 namespace BossBattle.Gameplay.Enemies.AI
 {
@@ -8,110 +8,113 @@ namespace BossBattle.Gameplay.Enemies.AI
         private float _attackTimer;
         private GunBase _leftGunComponent;
         private GunBase _rightGunComponent;
+        private float _strafeTimer;
+        private Vector3 _strafeDirection;
 
         public override void EnterState(WardenBossController warden)
         {
+            base.EnterState(warden);
             Debug.Log("Warden Entering Phase 2");
+
+            // Ensure Warden is vulnerable
+            warden.Hitbox.IsInvulnerable = false;
+            warden.MaterialController?.ClearInvulnerableMaterial();
+
+            // Configure guns
             warden.SingleGun.SetActive(false);
-            // Ensure LeftGun and RightGun GameObjects are active/inactive as needed
             warden.LeftGun.SetActive(true);
             warden.RightGun.SetActive(true);
-            _attackTimer = warden.WardenData.AttackRate;
+            
+            // Set phase-specific agent properties
+            warden.Agent.stoppingDistance = warden.Phase2StoppingDistance;
 
+            // Get gun components
             _leftGunComponent = warden.LeftGun.GetComponent<GunBase>();
             if (_leftGunComponent == null)
-            {
-                Debug.LogError("GunBase component not found on LeftGun GameObject for WardenPhase2State.");
-            }
+                Debug.LogError("GunBase component not found on LeftGun for WardenPhase2State.");
 
             _rightGunComponent = warden.RightGun.GetComponent<GunBase>();
             if (_rightGunComponent == null)
-            {
-                Debug.LogError("GunBase component not found on RightGun GameObject for WardenPhase2State.");
-            }
+                Debug.LogError("GunBase component not found on RightGun for WardenPhase2State.");
 
-            // Potentially move to Phase 2 start point if TransitionState didn't fully handle it or for re-engagement
-            if (Vector3.Distance(warden.transform.position, warden.Phase2StartPoint.position) > 1f)
-            {
-                warden.Agent.SetDestination(warden.Phase2StartPoint.position);
-            }
+            // Reset timers
+            _attackTimer = warden.WardenData.AttackRate;
+            _strafeTimer = 0f;
         }
 
         public override void UpdateState(WardenBossController warden)
         {
-            // Look at player
-            if (warden.Player != null)
+            if (warden.Player == null)
             {
-                warden.transform.LookAt(warden.Player);
+                warden.Agent.isStopped = true;
+                return;
             }
+            
+            warden.transform.LookAt(warden.Player);
 
-            // More aggressive Movement Logic for Phase 2
-            if (CanSeePlayer(warden))
+            HandleMovement(warden);
+            HandleAttack(warden);
+
+            // Check for transition to Phase 3, with a grace period
+            if (Time.time > timeEnteredState + 1.0f && warden.CurrentHealth <= warden.WardenData.Phase2HealthThreshold)
             {
-                float distanceToPlayer = Vector3.Distance(warden.transform.position, warden.Player.position);
-
-                if (distanceToPlayer > warden.CombatStoppingDistance + 3f) // Player too far, pursue aggressively
-                {
-                    warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
-                    warden.Agent.isStopped = false;
-                }
-                else if (distanceToPlayer < warden.CombatStoppingDistance - 3f) // Player too close, aggressive reposition/dodge
-                {
-                    Vector3 fleeDirection = (warden.transform.position - warden.Player.position).normalized;
-                    // Try to move to a side flank position
-                    Vector3 flankDirection = Quaternion.Euler(0, Random.Range(-45, 45), 0) * fleeDirection; 
-                    Vector3 flankPosition = warden.transform.position + flankDirection * 7f; 
-                    if (warden.Agent.destination != flankPosition)
-                    {
-                        warden.Agent.SetDestination(flankPosition);
-                        warden.Agent.isStopped = false;
-                    }
-                }
-                else // Optimal combat range, stop and attack
-                {
-                    warden.Agent.isStopped = true;
-                }
-            }
-            else // Cannot see player, pursue last known position more actively
-            {
-                // More active pursuit: move towards last known player position if pathable
-                if (Vector3.Distance(warden.transform.position, warden.GetPlayerNavMeshPosition()) > warden.CombatStoppingDistance)
-                {
-                    warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
-                    warden.Agent.isStopped = false;
-                }
-                else
-                {
-                    warden.Agent.isStopped = true; // Stop if at last known position
-                }
-            }
-
-
-            // Attack logic for phase 2
-            if (warden.Agent.isStopped && _attackTimer <= 0)
-            {
-                Attack(warden);
-                _attackTimer = warden.WardenData.AttackRate;
-            }
-            _attackTimer -= Time.deltaTime;
-
-            // Check for transition to Phase 3
-            if (warden.CurrentHealth <= warden.WardenData.Phase2HealthThreshold)
-            {
-                warden.TransitionToState(warden.Phase3State);
+                warden.nextPhaseToEnter = 3; // Set the next phase
+                warden.TransitionToState(warden.TransitionState); // Go to transition state first
             }
         }
 
+        private void HandleMovement(WardenBossController warden)
+        {
+            float distanceToPlayer = Vector3.Distance(warden.transform.position, warden.Player.position);
+
+            // Disengage if player is too far
+            if (distanceToPlayer > warden.Phase2EngagementRange)
+            {
+                warden.Agent.isStopped = false;
+                warden.Agent.SetDestination(warden.Phase2StartPoint.position);
+                return;
+            }
+
+            // Advance if player is outside stopping distance
+            if (distanceToPlayer > warden.Agent.stoppingDistance)
+            {
+                warden.Agent.isStopped = false;
+                warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
+            }
+            // Strafe and reposition if player is within stopping distance
+            else
+            {
+                warden.Agent.isStopped = true; // Stop forward movement
+                
+                _strafeTimer -= Time.deltaTime;
+                if (_strafeTimer <= 0)
+                {
+                    // Pick a new strafe direction (left or right) and duration
+                    _strafeDirection = Random.value > 0.5f ? warden.transform.right : -warden.transform.right;
+                    _strafeTimer = Random.Range(1f, 2.5f); // Strafe for 1-2.5 seconds
+                }
+                
+                // Use Move instead of SetDestination for smoother short-distance strafing
+                warden.Agent.Move(_strafeDirection * (warden.Agent.speed / 2) * Time.deltaTime);
+            }
+        }
+
+        private void HandleAttack(WardenBossController warden)
+        {
+            _attackTimer -= Time.deltaTime;
+            // Attack if player is visible and within engagement range
+            if (_attackTimer <= 0 && CanSeePlayer(warden))
+            {
+                Debug.Log("Warden attacks with dual guns!");
+                _leftGunComponent?.Fire();
+                _rightGunComponent?.Fire();
+                _attackTimer = warden.WardenData.AttackRate;
+            }
+        }
+        
         public override void OnCollisionEnter(WardenBossController warden)
         {
             // Handle collision
-        }
-
-        private void Attack(WardenBossController warden)
-        {
-            Debug.Log("Warden attacks with dual guns (burst/spread)!");
-            _leftGunComponent?.Fire();
-            _rightGunComponent?.Fire();
         }
     }
 }

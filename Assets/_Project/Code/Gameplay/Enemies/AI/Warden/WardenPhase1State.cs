@@ -10,7 +10,13 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         public override void EnterState(WardenBossController warden)
         {
+            base.EnterState(warden);
             Debug.Log("Warden Entering Phase 1");
+
+            // Ensure Warden is vulnerable
+            warden.Hitbox.IsInvulnerable = false;
+            warden.MaterialController?.ClearInvulnerableMaterial();
+
             warden.SingleGun.SetActive(true);
             warden.LeftGun.SetActive(false);
             warden.RightGun.SetActive(false);
@@ -73,6 +79,7 @@ namespace BossBattle.Gameplay.Enemies.AI
             // Check for transition
             if (warden.CurrentHealth <= warden.WardenData.Phase1HealthThreshold)
             {
+                warden.nextPhaseToEnter = 2; // Set the next phase
                 warden.TransitionToState(warden.TransitionState);
             }
         }

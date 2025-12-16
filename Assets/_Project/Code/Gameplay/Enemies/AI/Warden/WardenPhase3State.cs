@@ -6,33 +6,65 @@ namespace BossBattle.Gameplay.Enemies.AI
     {
         private float _newAbilityTimer;
         private bool _isWeakSpotExposed;
+        private bool _hasReachedArenaStartPoint;
 
         public override void EnterState(WardenBossController warden)
         {
+            base.EnterState(warden); // Set enter time for grace periods
             Debug.Log("Warden Entering Phase 3: Critical Vulnerability & Escalated Threats");
-            // Activate Phase 3 visuals, new powerful weapon, and expose weak spot
-            warden.SingleGun.SetActive(false); // Example: Turn off old guns
+
+            // Ensure Warden is vulnerable
+            warden.Hitbox.IsInvulnerable = false;
+            warden.MaterialController?.ClearInvulnerableMaterial();
+
+            // Initialize state
+            _hasReachedArenaStartPoint = false;
+            
+            // Activate Phase 3 visuals
+            warden.SingleGun.SetActive(false);
             warden.LeftGun.SetActive(true);
             warden.RightGun.SetActive(true);
-            // Activate unique Phase 3 weapon/visuals here
             warden.WeakSpotTransform.gameObject.SetActive(true);
             _isWeakSpotExposed = true;
             _newAbilityTimer = warden.WardenData.Phase3NewAbilityCooldown;
-            // Optionally spawn faster, smaller minions
-            // SpawnPhase3Minions(warden);
-            if (Vector3.Distance(warden.transform.position, warden.Phase3StartPoint.position) > 1f)
+
+            // Set destination to the Phase 3 start point
+            if (warden.Phase3StartPoint != null)
             {
                 warden.Agent.SetDestination(warden.Phase3StartPoint.position);
+                warden.Agent.isStopped = false;
+            }
+            else
+            {
+                Debug.LogError("Phase3StartPoint is not set on WardenBossController!");
+                _hasReachedArenaStartPoint = true; // Skip movement if no point is set
             }
         }
 
         public override void UpdateState(WardenBossController warden)
         {
-            // Look at player
-            if (warden.Player != null)
+            // First, check if the Warden has reached its designated start point for this phase
+            if (!_hasReachedArenaStartPoint)
             {
-                warden.transform.LookAt(warden.Player);
+                // Check if agent has reached the destination
+                if (!warden.Agent.pathPending && warden.Agent.remainingDistance < 0.5f)
+                {
+                    Debug.Log("Warden has reached the Phase 3 arena start point. Engaging player.");
+                    _hasReachedArenaStartPoint = true;
+                    warden.Agent.isStopped = true; // Stop briefly before engaging
+                }
+                return; // Do nothing else until the start point is reached
             }
+
+            // --- Combat Logic (only runs after reaching the start point) ---
+
+            if (warden.Player == null)
+            {
+                warden.Agent.isStopped = true;
+                return;
+            }
+            
+            warden.transform.LookAt(warden.Player);
 
             // Logic for new powerful ability
             _newAbilityTimer -= Time.deltaTime;
@@ -43,48 +75,34 @@ namespace BossBattle.Gameplay.Enemies.AI
             }
 
             // Aggressive movement for Phase 3: relentless pursuit
-            if (warden.Player != null && CanSeePlayer(warden))
+            if (CanSeePlayer(warden))
             {
-                // Constantly move towards the player, with a very small stopping distance or even none
                 warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
                 warden.Agent.isStopped = false;
-                warden.Agent.stoppingDistance = 0.5f; // Get very close
-                
-                // Could add logic for dash attacks or erratic movement here later
+                warden.Agent.stoppingDistance = 2f; // Get closer, but not on top of the player
             }
-            else if (warden.Player != null) // Cannot see player but player exists, move to last known position
+            else
             {
                  warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
                  warden.Agent.isStopped = false;
             }
-            else // No player, stop
-            {
-                warden.Agent.isStopped = true;
-            }
 
-            // Placeholder for weak spot management (to use _isWeakSpotExposed)
+            // Placeholder for weak spot management
             if (_isWeakSpotExposed)
             {
-                // Logic related to weak spot being exposed (e.g., visual effects, player interaction checks)
+                // Future logic...
             }
         }
 
         public override void OnCollisionEnter(WardenBossController warden)
         {
-            // Handle collision, especially for weak spot
-            // Example: If collision is with player projectile and hits weak spot
-            // warden.TakeDamage(damageAmount * warden.WardenData.WeakSpotMultiplier);
+            // Handle collision
         }
 
         private void PerformNewPowerfulAbility(WardenBossController warden)
         {
             Debug.Log("Warden performs new powerful Phase 3 ability!");
-            // Implement continuous laser, rapid-fire barrage, etc.
+            // Implement ability logic
         }
-
-        // private void SpawnPhase3Minions(WardenBossController warden)
-        // {
-        //     // Logic to spawn smaller, faster drones if desired
-        // }
     }
 }

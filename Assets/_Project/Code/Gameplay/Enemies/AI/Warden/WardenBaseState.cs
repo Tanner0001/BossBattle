@@ -4,7 +4,12 @@ namespace BossBattle.Gameplay.Enemies.AI
 {
     public abstract class WardenBaseState
     {
-        public abstract void EnterState(WardenBossController warden);
+        protected float timeEnteredState;
+
+        public virtual void EnterState(WardenBossController warden)
+        {
+            timeEnteredState = Time.time;
+        }
         public abstract void UpdateState(WardenBossController warden);
         public abstract void OnCollisionEnter(WardenBossController warden);
 

@@ -1,3 +1,4 @@
+using _Project.Code.Core.Audio;
 using _Project.Code.Core.Events;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ namespace _Project.Code.Gameplay.Feedback
         [SerializeField] private GameObject wardenExplosionVFX;
 
         [Header("Explosion SFX")]
-        [SerializeField] private AudioClip droneExplosionSFX;
-        [SerializeField] private AudioClip wardenExplosionSFX;
+        [SerializeField] private SoundEvent droneExplosionSound; // Changed from AudioClip to SoundEvent
+        [SerializeField] private SoundEvent wardenExplosionSound; // Changed from AudioClip to SoundEvent
 
         private void OnEnable()
         {
@@ -30,14 +31,14 @@ namespace _Project.Code.Gameplay.Feedback
                 case EnemyType.Drone:
                     if (droneExplosionVFX != null)
                         Instantiate(droneExplosionVFX, e.Position, Quaternion.identity);
-                    if (droneExplosionSFX != null)
-                        AudioSource.PlayClipAtPoint(droneExplosionSFX, e.Position);
+                    if (droneExplosionSound != null) // Check SoundEvent existence
+                        EventBus.Instance.Publish(new PlaySoundEvent(droneExplosionSound, e.Position, null)); // Publish PlaySoundEvent
                     break;
                 case EnemyType.Warden:
                     if (wardenExplosionVFX != null)
                         Instantiate(wardenExplosionVFX, e.Position, Quaternion.identity);
-                    if (wardenExplosionSFX != null)
-                        AudioSource.PlayClipAtPoint(wardenExplosionSFX, e.Position);
+                    if (wardenExplosionSound != null) // Check SoundEvent existence
+                        EventBus.Instance.Publish(new PlaySoundEvent(wardenExplosionSound, e.Position, null)); // Publish PlaySoundEvent
                     break;
             }
         }

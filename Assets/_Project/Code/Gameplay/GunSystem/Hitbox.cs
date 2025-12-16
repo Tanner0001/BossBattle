@@ -23,6 +23,7 @@ namespace _Project.Code.Gameplay.Combat
         public float CurrentShield { get; private set; }
         public float MaxShield => maxShield;
         public bool HasShield => hasShield; // Public getter for hasShield
+        public bool IsInvulnerable { get; set; } // Property to control damage immunity
 
         public event Action OnHealthChanged; // Event to notify subscribers of health/shield changes
 
@@ -66,6 +67,8 @@ namespace _Project.Code.Gameplay.Combat
 
         public void ApplyDamage(float amount)
         {
+            if (IsInvulnerable) return; // Ignore damage if invulnerable
+
             _lastDamageTime = Time.time; // Reset shield regen timer
 
             if (hasShield && CurrentShield > 0)

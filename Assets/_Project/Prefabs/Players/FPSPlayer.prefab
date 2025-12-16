@@ -102,6 +102,7 @@ MonoBehaviour:
   maxHealth: 150
   targetRenderer: {fileID: 0}
   isPlayer: 1
+  enemyType: 0
   hasShield: 0
   maxShield: 100
   shieldRegenRate: 10
@@ -173,7 +174,6 @@ GameObject:
   - component: {fileID: 7803903546495545621}
   - component: {fileID: 4393739266674715457}
   - component: {fileID: 1854837449365386054}
-  - component: {fileID: 8927590642080877300}
   m_Layer: 3
   m_Name: FPSPlayer
   m_TagString: Player
@@ -336,23 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MovementProfile>k__BackingField: {fileID: 11400000, guid: df501f85e39040c4b8292a4d16a0ae0a, type: 2}
---- !u!114 &8927590642080877300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7636853018378030737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 419a0e38e72392c4ea435f1c50a37e6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHitbox: {fileID: 3610984773965877434}
-  healthText: {fileID: 0}
-  bloodOverlayImage: {fileID: 0}
-  bloodThresholdPercentage: 0.5
-  bloodFadeSpeed: 1
 --- !u!1001 &7349607406596087266
 PrefabInstance:
   m_ObjectHideFlags: 0
