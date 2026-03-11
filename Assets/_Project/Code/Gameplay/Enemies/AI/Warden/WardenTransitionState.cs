@@ -14,7 +14,6 @@ namespace BossBattle.Gameplay.Enemies.AI
         public override void EnterState(WardenBossController warden)
         {
             base.EnterState(warden);
-            Debug.Log($"Warden Entering Transition State for Phase {warden.nextPhaseToEnter}");
 
             // Enable invulnerability and visual effect
             warden.Hitbox.IsInvulnerable = true;
@@ -61,7 +60,6 @@ namespace BossBattle.Gameplay.Enemies.AI
         {
             // Publish event to open the door for the player
             EventBus.Instance.Publish(new WardenReachedRetreatPointEvent());
-            Debug.Log("Warden reached retreat point. Published event to open door.");
 
             Transform nextDestination = null;
 
@@ -82,7 +80,6 @@ namespace BossBattle.Gameplay.Enemies.AI
             if (nextDestination != null)
             {
                 warden.Agent.SetDestination(nextDestination.position);
-                Debug.Log($"Warden moving to start point for Phase {warden.nextPhaseToEnter}.");
             }
             else
             {
@@ -93,7 +90,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         private void OnReachedNextPhaseStartPoint(WardenBossController warden)
         {
-            Debug.Log($"Warden reached start point, transitioning to Phase {warden.nextPhaseToEnter}.");
             warden.Agent.stoppingDistance = _originalStoppingDistance; // Restore original stopping distance
             GoToNextCombatState(warden);
         }
@@ -110,7 +106,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         private void SpawnDrones(WardenBossController warden)
         {
-            Debug.Log("Spawning Drones for Phase 2...");
             for (int i = 0; i < warden.WardenData.DronesToSpawn; i++)
             {
                 if (i < warden.DroneSpawnPoints.Length && warden.DronePrefab != null)
@@ -122,7 +117,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         private void RechargeShields(WardenBossController warden)
         {
-            Debug.Log("Recharging shields for Phase 3...");
             if (warden.Hitbox.HasShield)
             {
                 warden.Hitbox.RechargeShield(warden.Hitbox.MaxShield);

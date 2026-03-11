@@ -14,7 +14,6 @@ namespace BossBattle.Gameplay.Enemies.AI
         public override void EnterState(WardenBossController warden)
         {
             base.EnterState(warden);
-            Debug.Log("Warden Entering Phase 2");
 
             // Ensure Warden is vulnerable
             warden.Hitbox.IsInvulnerable = false;
@@ -105,7 +104,6 @@ namespace BossBattle.Gameplay.Enemies.AI
             // Attack if player is visible and within engagement range
             if (_attackTimer <= 0 && CanSeePlayer(warden))
             {
-                Debug.Log("Warden attacks with dual guns!");
                 _leftGunComponent?.Fire();
                 _rightGunComponent?.Fire();
                 _attackTimer = warden.WardenData.AttackRate;

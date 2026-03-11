@@ -11,7 +11,6 @@ namespace BossBattle.Gameplay.Enemies.AI
         public override void EnterState(WardenBossController warden)
         {
             base.EnterState(warden);
-            Debug.Log("Warden Entering Phase 1");
 
             // Ensure Warden is vulnerable
             warden.Hitbox.IsInvulnerable = false;
@@ -91,7 +90,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         private void Attack(WardenBossController warden)
         {
-            Debug.Log("Warden attacks with single gun!");
             _singleGunComponent?.Fire();
         }
     }

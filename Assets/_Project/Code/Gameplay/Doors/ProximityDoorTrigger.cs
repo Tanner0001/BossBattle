@@ -28,7 +28,6 @@ namespace _Project.Code.Gameplay.Doors
         {
             if (doorToControl != null && triggerTags.Any(other.CompareTag))
             {
-                Debug.Log($"'{other.tag}' entered trigger for door: {doorToControl.gameObject.name}");
                 doorToControl.OpenDoor();
             }
         }
@@ -37,7 +36,6 @@ namespace _Project.Code.Gameplay.Doors
         {
             if (closeOnExit && doorToControl != null && triggerTags.Any(other.CompareTag))
             {
-                Debug.Log($"'{other.tag}' exited trigger for door: {doorToControl.gameObject.name}");
                 doorToControl.CloseDoor();
             }
         }

@@ -12,25 +12,19 @@ namespace BossBattle.Gameplay.Enemies.AI
         public override void EnterState(WardenBossController warden)
         {
             base.EnterState(warden); // Set enter time for grace periods
-            Debug.Log("Warden Entering Phase 3: Critical Vulnerability & Escalated Threats");
 
-            // Ensure Warden is not invulnerable
             warden.Hitbox.IsInvulnerable = false;
             warden.MaterialController?.ClearInvulnerableMaterial();
 
-            // Initialize state
             _hasReachedArenaStartPoint = false;
             _newAbilityTimer = warden.WardenData.Phase3NewAbilityCooldown;
 
-            // Activate Phase 3 visuals
             warden.SingleGun.SetActive(false);
             warden.LeftGun.SetActive(true);
             warden.RightGun.SetActive(true);
 
-            // Start the vulnerability cycle
             ExposeWeakSpot(warden);
 
-            // Set destination to the Phase 3 start point
             if (warden.Phase3StartPoint != null)
             {
                 warden.Agent.SetDestination(warden.Phase3StartPoint.position);
@@ -45,17 +39,14 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         public override void UpdateState(WardenBossController warden)
         {
-            // First, check if the Warden has reached its designated start point for this phase
             if (!_hasReachedArenaStartPoint)
             {
-                // Check if agent has reached the destination
                 if (!warden.Agent.pathPending && warden.Agent.remainingDistance < 0.5f)
                 {
-                    Debug.Log("Warden has reached the Phase 3 arena start point. Engaging player.");
                     _hasReachedArenaStartPoint = true;
-                    warden.Agent.isStopped = true; // Stop briefly before engaging
+                    warden.Agent.isStopped = true;
                 }
-                return; // Do nothing else until the start point is reached
+                return; 
             }
 
             // --- Combat Logic (only runs after reaching the start point) ---
@@ -68,7 +59,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
             warden.transform.LookAt(warden.Player);
 
-            // Logic for new powerful ability
             _newAbilityTimer -= Time.deltaTime;
             if (_newAbilityTimer <= 0)
             {
@@ -76,15 +66,13 @@ namespace BossBattle.Gameplay.Enemies.AI
                 _newAbilityTimer = warden.WardenData.Phase3NewAbilityCooldown;
             }
             
-            // Handle weak spot vulnerability cycle
             HandleVulnerabilityCycle(warden);
 
-            // Aggressive movement for Phase 3: relentless pursuit
             if (CanSeePlayer(warden))
             {
                 warden.Agent.SetDestination(warden.GetPlayerNavMeshPosition());
                 warden.Agent.isStopped = false;
-                warden.Agent.stoppingDistance = 2f; // Get closer, but not on top of the player
+                warden.Agent.stoppingDistance = 2f;
             }
             else
             {
@@ -111,7 +99,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         private void ExposeWeakSpot(WardenBossController warden)
         {
-            Debug.Log("Warden weak spot is now EXPOSED.");
             _isWeakSpotExposed = true;
             warden.WeakSpotTransform.gameObject.SetActive(true);
             _vulnerabilityTimer = warden.WardenData.WeakSpotVulnerabilityDuration;
@@ -130,10 +117,7 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         private void HideWeakSpot(WardenBossController warden)
         {
-            Debug.Log("Warden weak spot is now PROTECTED.");
             _isWeakSpotExposed = false;
-            // We can choose to disable the weakspot object entirely or just change its material
-            // For this implementation, we'll just change the material.
             _vulnerabilityTimer = warden.WardenData.WeakSpotVulnerabilityCooldown;
 
             if (warden.WeakSpotRenderer != null && warden.WardenData.WeakSpotProtectedMaterial != null)
@@ -149,13 +133,10 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         public override void OnCollisionEnter(WardenBossController warden)
         {
-            // Handle collision
         }
 
         private void PerformNewPowerfulAbility(WardenBossController warden)
         {
-            Debug.Log("Warden performs new powerful Phase 3 ability!");
-            // Implement ability logic
         }
     }
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 using BossBattle.Gameplay.Enemies.Data;
-using _Project.Code.Gameplay.Combat; // Added for Hitbox
-using System; // Added for Action event
-using _Project.Code.Core.Events; // Added for EventBus
-using _Project.Code.Gameplay.VFX; // Added for MaterialController
-using TMPro; // For the vulnerability text
+using _Project.Code.Gameplay.Combat;
+using System;
+using _Project.Code.Core.Events;
+using _Project.Code.Gameplay.VFX;
+using TMPro;
 
 namespace BossBattle.Gameplay.Enemies.AI
 {
@@ -66,7 +66,7 @@ namespace BossBattle.Gameplay.Enemies.AI
         [Tooltip("The transform representing the visual root of the warden's model. Used for rotation and view origin. If not set, defaults to the main transform.")]
         [SerializeField] private Transform modelRoot;
 
-        private Hitbox _hitbox; // Reference to the attached Hitbox component
+        private Hitbox _hitbox;
 
         // Public properties for states to access core components
         public Hitbox Hitbox => _hitbox;
@@ -76,9 +76,9 @@ namespace BossBattle.Gameplay.Enemies.AI
         {
             Agent = GetComponent<NavMeshAgent>();
             MaterialController = GetComponent<MaterialController>();
-            _hitbox = GetComponent<Hitbox>(); // Get the Hitbox component
-            _hitbox.Initialize(WardenData.MaxHealth); // Initialize Hitbox with WardenData's MaxHealth
-            _hitbox.OnHealthChanged += () => OnHealthChanged?.Invoke(); // Subscribe to hitbox health changes
+            _hitbox = GetComponent<Hitbox>();
+            _hitbox.Initialize(WardenData.MaxHealth);
+            _hitbox.OnHealthChanged += () => OnHealthChanged?.Invoke();
 
             if (modelRoot == null)
                 modelRoot = transform;
@@ -93,7 +93,6 @@ namespace BossBattle.Gameplay.Enemies.AI
 
         void Start()
         {
-            // Set player transform
             Player = GameObject.FindGameObjectWithTag("Player").transform;
             Agent.speed = WardenData.MovementSpeed;
             Agent.angularSpeed = WardenData.TurnSpeed;
@@ -142,7 +141,7 @@ namespace BossBattle.Gameplay.Enemies.AI
             EventBus.Instance.Publish(new GameWonEvent());
         }
 
-        public Transform ModelRoot => modelRoot; // Public property for ModelRoot
+        public Transform ModelRoot => modelRoot;
 
         public Vector3 GetPlayerNavMeshPosition()
         {

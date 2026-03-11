@@ -136,7 +136,6 @@ namespace _Project.Code.Gameplay.Combat
                 EventBus.Instance.Publish(new PlayerDiedEvent());
                 // Player death is typically handled by a Game Over system, not destroying the GameObject immediately
                 // The PlayerHealthDisplay already calls a GameOver method.
-                Debug.Log("Player Hitbox: Player Died Event Published.");
             }
             else
             {
